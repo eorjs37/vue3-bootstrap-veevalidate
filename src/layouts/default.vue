@@ -1,6 +1,10 @@
 <template>
   <div>
     <router-view/>
-    <p>This is a default layout</p>
   </div>
 </template>
+
+<style lang="scss">
+@import "@/assets/styles/_variables.scss";
+
+</style>
