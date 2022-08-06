@@ -1,5 +1,7 @@
 // jsconfig.json
-{
+{   "vueCompilerOptions": {
+        "experimentalDisableTemplateSupport": true
+    },
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
