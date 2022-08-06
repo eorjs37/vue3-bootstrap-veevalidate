@@ -3,16 +3,28 @@
     <Form @submit="form.onSubmit" ref="form1">
       <b-row>
         <b-col lg="6" sm="12">
-          <b-form-group id="name" label="이름" label-for="name">
-            <b-form-input id="name" v-model="form.name" type="text" placeholder="이름을 입력하세요." :state="false"></b-form-input>
+          <Field v-model="form.name" id="name" name="name" label="name" rules="required" v-slot="{ field, errors }">
+            <b-form-group id="name" label="이름" label-for="name">
+              <b-form-input id="name" v-bind="field" type="text" placeholder="이름을 입력하세요." :state="errors[0] ? false : null"> </b-form-input>
 
-            <b-form-invalid-feedback id="input-live-feedback"> Enter at least 3 letters </b-form-invalid-feedback>
-          </b-form-group>
+              <b-form-invalid-feedback v-if="errors[0]" id="input-live-feedback"> {{ errors[0] }} </b-form-invalid-feedback>
+            </b-form-group>
+          </Field>
         </b-col>
         <b-col lg="6" sm="12">
-          <b-form-group id="email" label="Email address:" label-for="email">
-            <b-form-input id="email" v-model="form.email" type="email" placeholder="Enter email" :state="false" required></b-form-input>
-          </b-form-group>
+          <Field v-model="form.email" id="email" name="email" label="이메일" rules="required" v-slot="{ field, errors }">
+            <b-form-group id="email" label="Email address:" label-for="email">
+              <b-form-input
+                id="email"
+                v-bind="field"
+                type="email"
+                placeholder="Enter email"
+                :state="errors[0] ? false : null"
+                required></b-form-input>
+
+              <b-form-invalid-feedback v-if="errors[0]" id="input-live-feedback"> {{ errors[0] }} </b-form-invalid-feedback>
+            </b-form-group>
+          </Field>
         </b-col>
       </b-row>
 
