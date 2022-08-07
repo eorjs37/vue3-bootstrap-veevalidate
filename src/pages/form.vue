@@ -3,7 +3,7 @@
     <Form @submit="form.onSubmit" ref="addForm">
       <b-row>
         <b-col lg="6" sm="12">
-          <Field v-model="form.name" id="name" name="name" label="name" rules="required" v-slot="{ field, errors }">
+          <Field v-model="form.name" id="name" name="name" label="이름" rules="required" v-slot="{ field, errors }">
             <b-form-group id="name" label="이름" label-for="name">
               <b-form-input id="name" v-bind="field" type="text" placeholder="이름을 입력하세요." :state="errors[0] ? false : null"> </b-form-input>
 
@@ -86,16 +86,17 @@
       </b-row>
 
       <div class="text-right">
-        <b-button type="submit" variant="info">Info</b-button>
+        <b-button type="submit" variant="info" @click="form.onSubmit()">Submit</b-button>
       </div>
     </Form>
   </div>
 </template>
 
 <script>
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 export default {
   setup() {
+    const addForm = ref(null);
     const form = reactive({
       name: '',
       mail: '',
@@ -115,10 +116,18 @@ export default {
         { value: 2002, text: '한국' },
       ],
 
-      onSubmit: () => {},
+      onSubmit: async () => {
+        const { validate } = addForm.value;
+
+        const { valid } = await validate();
+        if (!valid) {
+          alert('필수값을 확인해주세요.');
+        }
+      },
     });
 
     return {
+      addForm,
       form,
     };
   },
