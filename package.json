@@ -8,6 +8,8 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@toast-ui/chart": "^4.4.3",
+    "@toast-ui/editor": "^3.2.0",
     "@vee-validate/i18n": "^4.6.2",
     "@vee-validate/rules": "^4.6.2",
     "bootstrap": "^5.2.0",
