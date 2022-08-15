@@ -32,7 +32,7 @@
         <b-col lg="12" sm="12">
           <Field v-model="fileForm.file" id="file" name="file" label="첨부파일" rules="filecheck" v-slot="{ field, errors }">
             <b-form-group id="file" label="첨부파일" label-for="file">
-              <input type="file" id="formFile" @change="fileForm.changeFile" />
+              <input class="form-control" type="file" id="formFile" @change="fileForm.changeFile" :class="{ error: errors[0] }" />
               <input type="hidden" v-bind="field" />
 
               <span class="txt-error" v-if="errors[0]">{{ errors[0] }}</span>
@@ -93,6 +93,6 @@ export default {
 
 .txt-error {
   display: block;
-  color: red;
+  color: #dc3545;
 }
 </style>
