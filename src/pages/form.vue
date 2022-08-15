@@ -98,7 +98,7 @@ export default {
   setup() {
     const addForm = ref(null);
     const form = reactive({
-      name: '',
+      name: '최대건',
       mail: '',
       password: '',
       passwordConfirm: '',

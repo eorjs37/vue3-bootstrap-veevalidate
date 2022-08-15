@@ -15,6 +15,7 @@ setLocale('ko');
 
 const app = createApp(App).use(router);
 
+//vee-validate-component
 app.component('Field', Field);
 app.component('Form', Form);
 app.component('ErrorMessage', ErrorMessage);
