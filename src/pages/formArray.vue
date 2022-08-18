@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-3">
-    <Form @submit="form.onSubmit" ref="formArray" :initial-values="form.values">
+    <Form @submit="form.onSubmit" ref="carrerArray" :initial-values="form.values">
       <b-row>
         <b-col lg="6" sm="12">
           <Field id="name" name="name" label="이름" rules="required" v-slot="{ field, errors }">
@@ -60,6 +60,10 @@
           </b-form-group>
         </FieldArray>
       </b-row>
+
+      <div class="txt-right">
+        <b-button type="submit" variant="info" @click="form.onSubmit()">Submit</b-button>
+      </div>
     </Form>
   </div>
 </template>
@@ -79,7 +83,14 @@ export default {
         ],
       },
 
-      onSubmit: () => {},
+      onSubmit: async () => {
+        const { validate } = carrerArray.value;
+        const { valid } = await validate();
+
+        if (!valid) {
+          alert('필수값을 확인해주세요.');
+        }
+      },
 
       addCarrer: () => {
         const { push } = carrerArray.value;
