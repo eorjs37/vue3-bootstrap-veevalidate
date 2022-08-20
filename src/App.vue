@@ -1,6 +1,13 @@
 <template>
-  <router-view/>
+  <router-view />
 </template>
 
-<style>
+<style lang="scss">
+html,
+body,
+#app {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
 </style>
