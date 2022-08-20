@@ -8,7 +8,14 @@
 </template>
 
 <script>
-export default {};
+import { onMounted } from '@vue/runtime-core';
+export default {
+  setup() {
+    onMounted(() => {
+      console.log('Sidebar.vue onMounted');
+    });
+  },
+};
 </script>
 
 <style lang="scss" scoped>
