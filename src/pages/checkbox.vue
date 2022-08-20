@@ -2,26 +2,44 @@
   <div class="container mt-3">
     <Form ref="checkboxForm">
       <b-row>
-        <Field
-          v-model="selected"
-          type="checkbox"
-          id="checkbox-group-1"
-          name="checkbox-validation"
-          label="체크박스"
-          rules="required"
-          v-slot="{ field, errors }">
-          <b-col lg="6" sm="12">
-            <b-form-checkbox-group
-              v-model="selected"
-              id="checkbox-group-1"
-              name="checkbox-validation"
-              v-bind="field"
-              :options="options"
-              :state="state">
-              <span class="txt-error" v-if="errors[0]">{{ errors[0] }}</span>
-            </b-form-checkbox-group>
-          </b-col>
-        </Field>
+        <b-form-group>
+          <Field
+            v-model="selected"
+            type="checkbox"
+            id="checkbox-group-1"
+            name="checkbox-validation"
+            label="체크박스"
+            rules="required"
+            :value="'orange'"
+            v-slot="{ field }">
+            <b-form-checkbox value="orange" inline v-bind="field">Orange</b-form-checkbox>
+          </Field>
+          <Field
+            v-model="selected"
+            type="checkbox"
+            id="checkbox-group-2"
+            name="checkbox-validation"
+            label="체크박스"
+            rules="required"
+            :value="'apple'"
+            v-slot="{ field }">
+            <b-form-checkbox value="apple" inline v-bind="field">apple</b-form-checkbox>
+          </Field>
+
+          <Field
+            v-model="selected"
+            type="checkbox"
+            id="checkbox-group-3"
+            name="checkbox-validation"
+            label="체크박스"
+            rules="required"
+            :value="'Pineapple'"
+            v-slot="{ field }">
+            <b-form-checkbox value="Pineapple" inline v-bind="field">Pineapple</b-form-checkbox>
+          </Field>
+        </b-form-group>
+        {{ selected }}
+        <ErrorMessage name="checkbox-validation" />
       </b-row>
 
       <div class="text-right">
@@ -37,10 +55,6 @@ export default {
   setup() {
     const checkboxForm = ref(null);
     const selected = ref([]);
-    const options = ref([
-      { value: '선택1', text: '선택1' },
-      { value: '선택2', text: '선택2' },
-    ]);
 
     const form = reactive({
       onSubmit: async () => {
@@ -59,7 +73,6 @@ export default {
     return {
       checkboxForm,
       selected,
-      options,
       state,
       form,
     };
