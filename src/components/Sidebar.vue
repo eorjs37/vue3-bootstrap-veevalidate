@@ -1,29 +1,51 @@
 <template>
   <div class="sidebar">
-    <a :class="{ active: route.name === 'form' }" @click="move('form')">Form</a>
-    <a :class="{ active: route.name === 'fileForm' }" @click="move('fileForm')">FileForm</a>
-    <a :class="{ active: route.name === 'checkbox' }" @click="move('checkbox')">checkBox</a>
-    <a :class="{ active: route.name === 'formArray' }" @click="move('formArray')">formArray</a>
+    <ul class="menu">
+      <li class="menu-nm" :class="{ active: curPath === 'form' || curPath === 'fileForm' }" @click="move('form')">상위1 메뉴</li>
+      <li>
+        <ul class="sub-menu">
+          <li class="menu-nm" :class="{ active: curPath === 'form' }" @click="move('form')">Form</li>
+          <li class="menu-nm" :class="{ active: curPath === 'fileForm' }" @click="move('fileForm')">FileForm</li>
+        </ul>
+      </li>
+      <li class="menu-nm" :class="{ active: curPath === 'checkbox' || curPath === 'formArray' }" @click="move('checkbox')">상위2 메뉴</li>
+      <li>
+        <ul class="sub-menu">
+          <li class="menu-nm" :class="{ active: curPath === 'checkbox' }" @click="move('checkbox')">checkBox</li>
+          <li class="menu-nm" :class="{ active: curPath === 'formArray' }" @click="move('formArray')">formArray</li>
+        </ul>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
-import { onMounted } from '@vue/runtime-core';
+import { onMounted, ref, watch } from '@vue/runtime-core';
 import { useRouter, useRoute } from 'vue-router';
 export default {
   setup() {
     const router = useRouter();
     const route = useRoute();
+    const curPath = ref(null);
 
     const move = page => {
       router.push({ name: page });
     };
 
-    onMounted(() => {});
+    onMounted(() => {
+      const { name } = route;
+      curPath.value = name;
+    });
+
+    watch(route, cur => {
+      const { name } = cur;
+      curPath.value = name;
+    });
 
     return {
       move,
       route,
+      curPath,
     };
   },
 };
@@ -46,6 +68,37 @@ export default {
   a.active {
     background-color: #04aa6d;
     color: white;
+  }
+
+  .menu,
+  .sub-menu {
+    list-style: none;
+    padding: 16px;
+    margin-bottom: 0;
+
+    .menu-nm {
+      cursor: pointer;
+    }
+
+    .menu-nm.active {
+      color: #04aa6d;
+    }
+
+    .menu-nm:hover {
+      color: #04aa6d;
+    }
+  }
+
+  .sub-menu {
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-right: 0;
+    padding-bottom: 10px;
+
+    li {
+      padding-bottom: 10px;
+      cursor: pointer;
+    }
   }
 }
 </style>
