@@ -1,19 +1,30 @@
 <template>
   <div class="sidebar">
-    <a class="active">Home</a>
-    <a>News</a>
-    <a>Contact</a>
-    <a>About</a>
+    <a :class="{ active: route.name === 'form' }" @click="move('form')">Form</a>
+    <a :class="{ active: route.name === 'fileForm' }" @click="move('fileForm')">FileForm</a>
+    <a :class="{ active: route.name === 'checkbox' }" @click="move('checkbox')">checkBox</a>
+    <a :class="{ active: route.name === 'formArray' }" @click="move('formArray')">formArray</a>
   </div>
 </template>
 
 <script>
 import { onMounted } from '@vue/runtime-core';
+import { useRouter, useRoute } from 'vue-router';
 export default {
   setup() {
-    onMounted(() => {
-      console.log('Sidebar.vue onMounted');
-    });
+    const router = useRouter();
+    const route = useRoute();
+
+    const move = page => {
+      router.push({ name: page });
+    };
+
+    onMounted(() => {});
+
+    return {
+      move,
+      route,
+    };
   },
 };
 </script>

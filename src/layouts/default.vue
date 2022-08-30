@@ -11,9 +11,19 @@
 
 <script>
 import Sidebar from '@/components/Sidebar.vue';
+import { nextTick, onMounted } from '@vue/runtime-core';
 export default {
   components: {
     Sidebar,
+  },
+  setup() {
+    onMounted(() => {
+      console.log('default.vue onMounted');
+
+      nextTick(() => {
+        console.log('default.vue nextTick');
+      });
+    });
   },
 };
 </script>
