@@ -2,6 +2,8 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import BootstrapVue3 from 'bootstrap-vue-3';
+import Paging from '@/components/Paging.vue';
+import Notifications from '@kyvg/vue3-notification';
 
 //bootstrap3
 import 'bootstrap/dist/css/bootstrap.css';
@@ -21,5 +23,11 @@ app.component('Form', Form);
 app.component('ErrorMessage', ErrorMessage);
 app.component('FieldArray', FieldArray);
 
+//global-component
+app.component('Paging', Paging);
+
+//BootstrapVue3
 app.use(BootstrapVue3);
+//Notifications
+app.use(Notifications);
 app.mount('#app');
