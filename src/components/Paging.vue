@@ -154,14 +154,7 @@ export default {
 
 <style lang="scss" scoped>
 .page {
-  width: 100%;
-  position: relative;
-  nav {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
+  display: inline-block;
   .cursor {
     cursor: pointer;
   }

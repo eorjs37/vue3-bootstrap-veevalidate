@@ -3,6 +3,7 @@ import App from './App.vue';
 import router from './router';
 import BootstrapVue3 from 'bootstrap-vue-3';
 import Paging from '@/components/Paging.vue';
+import Table from '@/components/Table.vue';
 import Notifications from '@kyvg/vue3-notification';
 
 //bootstrap3
@@ -25,6 +26,7 @@ app.component('FieldArray', FieldArray);
 
 //global-component
 app.component('Paging', Paging);
+app.component('Table', Table);
 
 //BootstrapVue3
 app.use(BootstrapVue3);
