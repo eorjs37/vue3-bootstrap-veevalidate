@@ -4,6 +4,10 @@
       <!-- ##################### thead ##################### -->
       <thead>
         <tr>
+          <th v-if="isCheckBox" class="txt_center">
+            <input type="checkbox" class="checkbox" v-model="allChecked" />
+            <label for="cb1"></label>
+          </th>
           <template v-for="(item, index) in tabledata.head" :key="'head' + index">
             <slot :name="'Head' + item.headkey">
               <th>
@@ -17,6 +21,10 @@
       <tbody>
         <template v-for="(rowItem, index) in compBodyData" :key="'rowItem' + index">
           <tr>
+            <td v-if="isCheckBox" class="txt_center">
+              <input type="checkbox" class="checkbox" v-model="rowItem.isCheck" @click="rowItem.isCheck = !rowItem.isCheck" />
+              <label for="cb1"></label>
+            </td>
             <td v-for="(headitem, index) in tabledata.head" :key="'head' + index" @click="rowSelected(rowItem)">
               <slot :name="headitem.headkey" :row="rowItem">
                 {{ rowItem[headitem.headkey] }}
@@ -33,32 +41,42 @@
 </template>
 
 <script>
-import { ref } from '@vue/reactivity';
-import { computed } from '@vue/runtime-core';
+import { reactive, ref, toRefs } from '@vue/reactivity';
+import { computed, onMounted, watch } from '@vue/runtime-core';
 import _ from 'lodash';
 /**
  * @description : 테이블 객체
  */
 const talbeObj = (props, context) => {
-  const bodyData = ref(props.tabledata.body);
+  const allChecked = ref(false);
+  const selectItem = [];
+  const { tabledata: tableList } = toRefs(props);
 
   const rowSelected = item => {
     context.emit('rowselected', item);
   };
 
   const compBodyData = computed(() => {
-    const copyData = _.cloneDeep(bodyData.value);
+    console.log('compBodyData');
+    const copyData = _.cloneDeep(tableList.value.body);
+
     return copyData;
   });
 
   return {
-    bodyData,
+    tableList,
+    allChecked,
     rowSelected,
     compBodyData,
   };
 };
 export default {
   props: {
+    isCheckBox: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
     tabledata: {
       type: Object,
       required: false,
@@ -72,10 +90,21 @@ export default {
   },
   emits: ['rowselected'],
   setup(props, context) {
-    const { bodyData, compBodyData, rowSelected } = talbeObj(props, context);
+    const { tableList, allChecked, compBodyData, rowSelected } = talbeObj(props, context);
+
+    onMounted(() => {});
+
+    watch(
+      () => allChecked.value,
+      cur => {
+        tableList.value.body.forEach(tableItem => {
+          tableItem['isCheck'] = cur;
+        });
+      }
+    );
 
     return {
-      bodyData,
+      allChecked,
       rowSelected,
       compBodyData,
     };

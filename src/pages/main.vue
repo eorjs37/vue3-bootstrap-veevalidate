@@ -10,6 +10,8 @@
 
 <script>
 import { reactive } from '@vue/reactivity';
+import mockTable from '@/assets/mock/mock.json';
+import { onMounted } from '@vue/runtime-core';
 export default {
   setup() {
     const tableData = reactive({
@@ -18,25 +20,20 @@ export default {
         { headkey: 'Name', colname: '이름' },
         { headkey: 'Contury', colname: '국가' },
       ],
-      body: [
-        {
-          id: 1,
-          Company: 'Alfreds Futterkiste',
-          Name: 'Maria Anders',
-          Contury: 'Germany',
-        },
-        {
-          id: 2,
-          Company: 'Centro comercial Moctezuma',
-          Name: 'Francisco Chang',
-          Contury: 'Mexico',
-        },
-      ],
+      body: [],
     });
 
     const selectItem = item => {
       console.log('선택된 아이템 : ', item);
     };
+
+    const mockApi = index => {
+      tableData.body = mockTable[index - 1];
+    };
+
+    onMounted(() => {
+      mockApi(1);
+    });
 
     return {
       tableData,
