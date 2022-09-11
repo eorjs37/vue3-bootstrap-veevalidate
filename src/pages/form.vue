@@ -5,7 +5,8 @@
         <b-col lg="6" sm="12">
           <Field v-model="form.name" id="name" name="name" label="이름" rules="required" v-slot="{ field, errors }">
             <b-form-group id="name" label="이름" label-for="name">
-              <b-form-input id="name" v-bind="field" type="text" placeholder="이름을 입력하세요." :state="errors[0] ? false : null"> </b-form-input>
+              <b-form-input id="name" v-bind="field" type="text" placeholder="이름을테스트 입력하세요." :state="errors[0] ? false : null">
+              </b-form-input>
 
               <b-form-invalid-feedback v-if="errors[0]" id="input-live-feedback"> {{ errors[0] }} </b-form-invalid-feedback>
             </b-form-group>
