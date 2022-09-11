@@ -25,5 +25,7 @@ export default {};
 .search-box {
   border-radius: 10px;
   background-color: #fff;
+  border-width: 0;
+  transition: all 0.2s;
 }
 </style>
