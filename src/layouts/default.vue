@@ -3,7 +3,7 @@
     <b-col cols="2" class="pr-0">
       <Sidebar></Sidebar>
     </b-col>
-    <b-col cols="10" class="pl-0">
+    <b-col cols="10" class="pl-0 body">
       <router-view />
     </b-col>
   </b-row>
@@ -31,4 +31,8 @@ export default {
 <style lang="scss">
 @import '@/assets/styles/_variables.scss';
 @import '@/assets/styles/_styles.scss';
+
+.body {
+  background-color: #f5f8fa;
+}
 </style>

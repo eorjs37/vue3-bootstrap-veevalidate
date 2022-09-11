@@ -53,9 +53,10 @@ export default {
 
 <style lang="scss" scoped>
 .sidebar {
-  background-color: #f1f1f1;
+  background-color: #1e1e2d;
   height: 100%;
   padding-right: 0;
+  color: #9d9da6;
 
   a {
     display: block;
