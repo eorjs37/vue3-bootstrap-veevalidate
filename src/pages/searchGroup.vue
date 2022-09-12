@@ -1,31 +1,95 @@
 <template>
   <div class="container mt-3">
+    <h1>검색조건</h1>
     <div class="search-box">
       <b-row>
-        <b-col cols="2">라벨넣는곳</b-col>
-        <b-col cols="10">인풋박스,searchBox</b-col>
+        <b-col cols="6">
+          <b-row>
+            <b-col cols="2" class="label">이름</b-col>
+            <b-col cols="10"> <b-form-input class="search-input" placeholder="Enter your name"></b-form-input></b-col>
+          </b-row>
+        </b-col>
+
+        <b-col cols="6">
+          <b-row>
+            <b-col cols="2" class="label">국가</b-col>
+            <b-col cols="10">
+              <b-form-select class="search-selectbox" :options="options"></b-form-select>
+            </b-col>
+          </b-row>
+        </b-col>
       </b-row>
       <b-row>
-        <b-col cols="2">라벨넣는곳</b-col>
-        <b-col cols="10">인풋박스,searchBox</b-col>
+        <b-col cols="1" class="label">상태</b-col>
+        <b-col cols="11" class="label">
+          <b-form-checkbox inline v-for="option in checkboxOptions" :key="option.value" :value="option.value">
+            {{ option.text }}
+          </b-form-checkbox>
+        </b-col>
       </b-row>
       <b-row>
-        <b-col cols="2">라벨넣는곳</b-col>
-        <b-col cols="10">인풋박스,searchBox</b-col>
+        <b-col cols="1" class="label">재직상태</b-col>
+        <b-col cols="11" class="label">
+          <b-form-radio inline v-for="option in radioOptions" :key="option.value" :value="option.value">
+            {{ option.text }}
+          </b-form-radio>
+        </b-col>
       </b-row>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import { reactive } from '@vue/reactivity';
+export default {
+  setup() {
+    const options = reactive([
+      { value: '', text: '-선택-' },
+      { value: 'kor', text: '대한민국' },
+      { value: 'amr', text: '미국' },
+    ]);
+
+    const checkboxOptions = reactive([
+      { text: '수업완료', value: '수업완료' },
+      { text: '수업대기', value: '수업대기' },
+    ]);
+
+    const radioOptions = reactive([
+      { text: '재직중', value: '재직중' },
+      { text: '퇴사', value: '퇴사' },
+    ]);
+
+    return {
+      options,
+      checkboxOptions,
+      radioOptions,
+    };
+  },
+};
 </script>
 
 <style lang="scss">
 .search-box {
   border-radius: 10px;
   background-color: #fff;
+  box-shadow: 5px 5px rgba(238, 234, 234, 0.9);
+  padding: 25px;
   border-width: 0;
   transition: all 0.2s;
+
+  .label {
+    line-height: 3em;
+  }
+
+  .search-input,
+  .search-selectbox,
+  .search-checkbox,
+  .search-radio {
+    line-height: 2em;
+  }
+
+  .form-check-input {
+    margin-top: 1em;
+  }
 }
 </style>
