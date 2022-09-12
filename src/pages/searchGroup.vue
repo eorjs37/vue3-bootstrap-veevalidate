@@ -1,6 +1,6 @@
 <template>
-  <div class="container mt-3">
-    <h1>검색조건</h1>
+  <div class="container mt-3 search-container">
+    <h1 class="title">검색조건</h1>
     <div class="search-box">
       <b-row>
         <b-col cols="6">
@@ -36,6 +36,10 @@
         </b-col>
       </b-row>
     </div>
+
+    <div class="txt-right mt-3">
+      <b-button variant="info" class="search-button">검색</b-button>
+    </div>
   </div>
 </template>
 
@@ -69,27 +73,36 @@ export default {
 </script>
 
 <style lang="scss">
-.search-box {
-  border-radius: 10px;
-  background-color: #fff;
-  box-shadow: 5px 5px rgba(238, 234, 234, 0.9);
-  padding: 25px;
-  border-width: 0;
-  transition: all 0.2s;
-
-  .label {
-    line-height: 3em;
+.search-container {
+  .title {
+    color: #495057;
   }
 
-  .search-input,
-  .search-selectbox,
-  .search-checkbox,
-  .search-radio {
-    line-height: 2em;
+  .search-box {
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 5px 5px rgba(238, 234, 234, 0.9);
+    padding: 25px;
+    border-width: 0;
+    transition: all 0.2s;
+    .label {
+      line-height: 3em;
+    }
+
+    .search-input,
+    .search-selectbox,
+    .search-checkbox,
+    .search-radio {
+      line-height: 2em;
+    }
+
+    .form-check-input {
+      margin-top: 1em;
+    }
   }
 
-  .form-check-input {
-    margin-top: 1em;
+  .search-button {
+    color: #fff;
   }
 }
 </style>

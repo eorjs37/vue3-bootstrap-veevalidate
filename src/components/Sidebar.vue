@@ -15,6 +15,12 @@
           <li class="menu-nm" :class="{ active: curPath === 'formArray' }" @click="move('formArray')">formArray</li>
         </ul>
       </li>
+      <li class="menu-nm" :class="{ active: curPath === 'searchGroup' }">상위3 메뉴</li>
+      <li>
+        <ul class="sub-menu">
+          <li class="menu-nm" :class="{ active: curPath === 'searchGroup' }" @click="move('searchGroup')">SearchGroup</li>
+        </ul>
+      </li>
     </ul>
   </div>
 </template>
