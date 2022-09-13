@@ -18,8 +18,18 @@
 </template>
 
 <script>
+import { login } from '@/api/login';
+import { onMounted } from '@vue/runtime-core';
 export default {
   layout: 'login',
+  setup() {
+    onMounted(() => {
+      login({
+        UserId: 'chleorjs37@gmail.com',
+        PassWord: 'chleorjs12@',
+      });
+    });
+  },
 };
 </script>
 
