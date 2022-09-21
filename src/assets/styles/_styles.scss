@@ -13,3 +13,38 @@
 .txt-right {
   text-align: right;
 }
+
+/* 검색조건 */
+
+.search-container {
+  .title {
+    color: #495057;
+  }
+
+  .search-box {
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 5px 5px rgba(238, 234, 234, 0.9);
+    padding: 25px;
+    border-width: 0;
+    transition: all 0.2s;
+    .label {
+      line-height: 2.9em;
+    }
+
+    .search-input,
+    .search-selectbox,
+    .search-checkbox,
+    .search-radio {
+      line-height: 2em;
+    }
+
+    .form-check-input {
+      margin-top: 1em;
+    }
+  }
+
+  .search-button {
+    color: #fff;
+  }
+}

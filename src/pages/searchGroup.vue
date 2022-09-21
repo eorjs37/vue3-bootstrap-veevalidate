@@ -30,7 +30,7 @@
       <b-row>
         <b-col cols="1" class="label">재직상태</b-col>
         <b-col cols="11" class="label">
-          <b-form-radio inline v-for="option in radioOptions" :key="option.value" :value="option.value">
+          <b-form-radio inline v-for="option in radioOptions" :key="option.value" :value="option.value" v-model="selected">
             {{ option.text }}
           </b-form-radio>
         </b-col>
@@ -40,11 +40,40 @@
     <div class="txt-right mt-3">
       <b-button variant="info" class="search-button">검색</b-button>
     </div>
+
+    <div class="mt-3">
+      <Table :tabledata="tableData"></Table>
+    </div>
   </div>
 </template>
 
 <script>
-import { reactive } from '@vue/reactivity';
+import { ref, reactive } from '@vue/reactivity';
+
+const sampleData = () => {
+  const tableData = reactive({
+    head: [
+      {
+        headkey: 'name',
+        colname: '이름',
+      },
+      {
+        headkey: 'gender',
+        colname: '성별',
+      },
+      {
+        headkey: 'country',
+        colname: '국가',
+      },
+    ],
+    body: [],
+  });
+
+  return {
+    tableData,
+  };
+};
+
 export default {
   setup() {
     const options = reactive([
@@ -63,46 +92,19 @@ export default {
       { text: '퇴사', value: '퇴사' },
     ]);
 
+    const selected = ref('');
+
+    const { tableData } = sampleData();
+
     return {
       options,
       checkboxOptions,
       radioOptions,
+      selected,
+      tableData,
     };
   },
 };
 </script>
 
-<style lang="scss">
-.search-container {
-  .title {
-    color: #495057;
-  }
-
-  .search-box {
-    border-radius: 10px;
-    background-color: #fff;
-    box-shadow: 5px 5px rgba(238, 234, 234, 0.9);
-    padding: 25px;
-    border-width: 0;
-    transition: all 0.2s;
-    .label {
-      line-height: 3em;
-    }
-
-    .search-input,
-    .search-selectbox,
-    .search-checkbox,
-    .search-radio {
-      line-height: 2em;
-    }
-
-    .form-check-input {
-      margin-top: 1em;
-    }
-  }
-
-  .search-button {
-    color: #fff;
-  }
-}
-</style>
+<style lang="scss"></style>

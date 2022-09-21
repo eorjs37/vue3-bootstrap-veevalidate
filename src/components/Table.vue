@@ -2,15 +2,15 @@
   <div class="table-responsive-md">
     <table class="table carrot-table">
       <!-- ##################### thead ##################### -->
-      <thead>
+      <thead class="thead-dark">
         <tr>
-          <th v-if="isCheckBox" class="txt_center">
+          <th v-if="isCheckBox" class="txt-center">
             <input type="checkbox" class="checkbox" v-model="allChecked" />
             <label for="cb1"></label>
           </th>
           <template v-for="(item, index) in tabledata.head" :key="'head' + index">
             <slot :name="'Head' + item.headkey">
-              <th>
+              <th class="txt-center">
                 {{ item.colname }}
               </th>
             </slot>
@@ -21,7 +21,7 @@
       <tbody>
         <template v-for="(rowItem, index) in compBodyData" :key="'rowItem' + index">
           <tr>
-            <td v-if="isCheckBox" class="txt_center">
+            <td v-if="isCheckBox" class="txt-center">
               <input type="checkbox" class="checkbox" v-model="rowItem.isCheck" @click="rowItem.isCheck = !rowItem.isCheck" />
               <label for="cb1"></label>
             </td>
@@ -115,11 +115,17 @@ export default {
 <style lang="scss" scoped>
 .carrot-table {
   thead > tr {
-    background-color: #eee;
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #dee2e6;
+  }
+
+  thead > tr > th {
+    border-bottom-width: 2px;
+    border: 1px solid #dee2e6;
   }
 
   tbody > tr:hover {
-    background-color: #eee;
+    background-color: #f8f9fa;
   }
 }
 </style>
