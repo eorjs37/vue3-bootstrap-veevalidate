@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <nav aria-label="Page navigation example">
-      <ul class="pagination">
+      <ul class="pagination" :class="alignment">
         <li class="page-item cursor" @click="prevPaging"><a class="page-link">Previous</a></li>
 
         <li
@@ -116,6 +116,12 @@ export default {
       required: true,
       default: 5,
     },
+    //페이징 정렬(중앙,왼쪽,오른쪽)
+    alignment: {
+      type: String,
+      required: false,
+      default: 'center',
+    },
   },
   emits: ['onPaging'],
 
@@ -154,9 +160,20 @@ export default {
 
 <style lang="scss" scoped>
 .page {
-  display: inline-block;
   .cursor {
     cursor: pointer;
+  }
+
+  .center {
+    justify-content: center;
+  }
+
+  .left {
+    justify-content: left;
+  }
+
+  .right {
+    justify-content: right;
   }
 }
 </style>
