@@ -45,7 +45,7 @@
       <Table :tabledata="tableData"></Table>
     </div>
 
-    <div>
+    <div class="right mt-3">
       <Paging :totaldata="30" :pagingdata="5" :pagingrange="5" :alignment="'right'"></Paging>
     </div>
   </div>
