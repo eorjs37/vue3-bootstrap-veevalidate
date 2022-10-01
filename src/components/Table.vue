@@ -21,11 +21,11 @@
       <tbody>
         <template v-for="(rowItem, index) in compBodyData" :key="'rowItem' + index">
           <tr>
-            <td v-if="isCheckBox" class="txt-center">
+            <td v-if="isCheckBox" class="txt-center carrot-row">
               <input type="checkbox" class="checkbox" v-model="rowItem.isCheck" @click="rowItem.isCheck = !rowItem.isCheck" />
               <label for="cb1"></label>
             </td>
-            <td v-for="(headitem, index) in tabledata.head" :key="'head' + index" @click="rowSelected(rowItem)">
+            <td v-for="(headitem, index) in tabledata.head" :key="'head' + index" @click="rowSelected(rowItem)" class="carrot-row">
               <slot :name="headitem.headkey" :row="rowItem">
                 {{ rowItem[headitem.headkey] }}
               </slot>
@@ -33,7 +33,7 @@
           </tr>
         </template>
         <tr v-if="compBodyData.length === 0">
-          <td colspan="99" class="txt-center">검색결과가 없습니다</td>
+          <td colspan="99" class="txt-center carrot-row">검색결과가 없습니다</td>
         </tr>
       </tbody>
     </table>
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { reactive, ref, toRefs } from '@vue/reactivity';
+import { ref, toRefs } from '@vue/reactivity';
 import { computed, onMounted, watch } from '@vue/runtime-core';
 import _ from 'lodash';
 /**
@@ -125,7 +125,11 @@ export default {
   }
 
   tbody > tr:hover {
-    background-color: #f8f9fa;
+    background-color: #dee2e6;
+  }
+
+  .carrot-row {
+    border: 1px solid #dee2e6;
   }
 }
 </style>

@@ -44,26 +44,31 @@
     <div class="mt-3">
       <Table :tabledata="tableData"></Table>
     </div>
+
+    <div class="right mt-3">
+      <Paging :totaldata="30" :pagingdata="5" :pagingrange="5" :alignment="'right'"></Paging>
+    </div>
   </div>
 </template>
 
 <script>
 import { ref, reactive } from '@vue/reactivity';
-
+import { onMounted } from '@vue/runtime-core';
+import mock from '@/assets/mock/mock.json';
 const sampleData = () => {
   const tableData = reactive({
     head: [
       {
-        headkey: 'name',
-        colname: '이름',
+        headkey: 'Company',
+        colname: '회사명',
       },
       {
-        headkey: 'gender',
-        colname: '성별',
-      },
-      {
-        headkey: 'country',
+        headkey: 'Contury',
         colname: '국가',
+      },
+      {
+        headkey: 'Name',
+        colname: '이름',
       },
     ],
     body: [],
@@ -95,6 +100,13 @@ export default {
     const selected = ref('');
 
     const { tableData } = sampleData();
+
+    onMounted(() => {
+      setTimeout(() => {
+        console.log(mock);
+        tableData.body = mock[0];
+      }, 2000);
+    });
 
     return {
       options,
