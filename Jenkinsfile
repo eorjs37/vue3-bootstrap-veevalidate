@@ -1,7 +1,9 @@
 pipeline {
     stages{
          stage('Checkout Stage') {
-            echo "---Checkout---"
+            steps{
+                echo "---Checkout---"
+            }
             // steps:{
             //     git branch: 'master',
             //     credentialsId :  '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',
@@ -10,11 +12,17 @@ pipeline {
         }
 
         stage('Build Stage') {
-            echo "---Build Stage222---"
+             steps{
+                echo "---Build Stage222---"
+            }
+            
         }
 
         stage('Push Stage') {
-            echo "---Push Stage2222---"
+             steps{
+                echo "---Push Stage2222---"
+            }
+            
         }
     }
    
