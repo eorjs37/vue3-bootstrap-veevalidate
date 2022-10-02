@@ -1,8 +1,8 @@
 node{
-    stage('Checkout') {
+    stage('Clone') {
         steps:{
-            echo: "Building Container.."
-            }
+            echo 'Clone'
+        }
     }
     stage('Build Stage') {
         steps{
