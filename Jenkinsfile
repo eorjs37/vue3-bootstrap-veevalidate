@@ -5,12 +5,12 @@ node{
         }
     }
     stage('Build') {
-        steps{
+        steps:{
             echo "---Build Stage222---"
         }
     }
     stage('Push') {
-        steps{
+        steps:{
             echo "---Push Stage2222---"
         }       
     }
