@@ -5,7 +5,7 @@
       <b-row>
         <b-col cols="6">
           <b-row>
-            <b-col cols="2" class="label">이름</b-col>
+            <b-col cols="2" class="label">이름 </b-col>
             <b-col cols="10"> <b-form-input class="search-input" placeholder="Enter your name"></b-form-input></b-col>
           </b-row>
         </b-col>
@@ -42,11 +42,11 @@
     </div>
 
     <div class="mt-3">
-      <Table :tabledata="tableData"></Table>
+      <Table :tabledata="tableData" :loading="onLoading" :tableId="'carrot-sample1'"></Table>
     </div>
 
     <div class="right mt-3">
-      <Paging :totaldata="30" :pagingdata="5" :pagingrange="5" :alignment="'right'"></Paging>
+      <Paging :totaldata="30" :pagingdata="5" :pagingrange="5"></Paging>
     </div>
   </div>
 </template>
@@ -56,8 +56,13 @@ import { ref, reactive } from '@vue/reactivity';
 import { onMounted } from '@vue/runtime-core';
 import mock from '@/assets/mock/mock.json';
 const sampleData = () => {
+  const onLoading = ref(false);
   const tableData = reactive({
     head: [
+      {
+        headkey: 'id',
+        colname: 'ID',
+      },
       {
         headkey: 'Company',
         colname: '회사명',
@@ -76,6 +81,7 @@ const sampleData = () => {
 
   return {
     tableData,
+    onLoading,
   };
 };
 
@@ -99,12 +105,14 @@ export default {
 
     const selected = ref('');
 
-    const { tableData } = sampleData();
+    const { tableData, onLoading } = sampleData();
 
     onMounted(() => {
+      onLoading.value = true;
       setTimeout(() => {
         console.log(mock);
         tableData.body = mock[0];
+        onLoading.value = false;
       }, 2000);
     });
 
@@ -114,9 +122,19 @@ export default {
       radioOptions,
       selected,
       tableData,
+      onLoading,
     };
   },
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+#carrot-sample1 {
+  #id {
+    text-align: center;
+  }
+  #Company {
+    text-align: center;
+  }
+}
+</style>

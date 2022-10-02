@@ -16,6 +16,10 @@ import { setLocale } from '@vee-validate/i18n';
 import { Field, Form, ErrorMessage, FieldArray } from 'vee-validate';
 setLocale('ko');
 
+//fontawesome
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import '@/utils/fontawesome';
+
 const app = createApp(App).use(router);
 
 //vee-validate-component
@@ -27,6 +31,9 @@ app.component('FieldArray', FieldArray);
 //global-component
 app.component('Paging', Paging);
 app.component('Table', Table);
+
+//font-awesome
+app.component('FontAwesomeIcon', FontAwesomeIcon);
 
 //BootstrapVue3
 app.use(BootstrapVue3);

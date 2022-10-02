@@ -1,6 +1,6 @@
 <template>
   <div class="table-responsive-md">
-    <table class="table carrot-table">
+    <table class="table carrot-table" :id="tableId">
       <!-- ##################### thead ##################### -->
       <thead class="thead-dark">
         <tr>
@@ -19,20 +19,32 @@
       </thead>
       <!--##################### tbody #####################-->
       <tbody>
-        <template v-for="(rowItem, index) in compBodyData" :key="'rowItem' + index">
-          <tr>
+        <template v-if="compBodyData.length > 0 && !loading">
+          <tr v-for="(rowItem, index) in compBodyData" :key="'rowItem' + index">
             <td v-if="isCheckBox" class="txt-center carrot-row">
               <input type="checkbox" class="checkbox" v-model="rowItem.isCheck" @click="rowItem.isCheck = !rowItem.isCheck" />
               <label for="cb1"></label>
             </td>
-            <td v-for="(headitem, index) in tabledata.head" :key="'head' + index" @click="rowSelected(rowItem)" class="carrot-row">
+            <td
+              v-for="(headitem, index) in tabledata.head"
+              :key="'body' + index"
+              @click="rowSelected(rowItem)"
+              class="carrot-row"
+              :id="headitem.headkey">
               <slot :name="headitem.headkey" :row="rowItem">
                 {{ rowItem[headitem.headkey] }}
               </slot>
             </td>
           </tr>
         </template>
-        <tr v-if="compBodyData.length === 0">
+        <template v-else-if="loading">
+          <tr>
+            <td colspan="99" class="txt-center">
+              <font-awesome-icon icon="fa-solid fa-spinner" spin />
+            </td>
+          </tr>
+        </template>
+        <tr v-else-if="compBodyData.length === 0">
           <td colspan="99" class="txt-center carrot-row">검색결과가 없습니다</td>
         </tr>
       </tbody>
@@ -86,6 +98,16 @@ export default {
           body: [],
         };
       },
+    },
+    loading: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    tableId: {
+      type: String,
+      required: false,
+      default: '',
     },
   },
   emits: ['rowselected'],
