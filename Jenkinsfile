@@ -10,7 +10,7 @@ node{
     stage('Build') {
         steps:{
             echo "---Build Stage222---"
-            sh "npm intall"
+            sh "npm install"
             sh "npm run build"
         }
     }
