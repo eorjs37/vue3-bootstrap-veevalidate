@@ -3,10 +3,10 @@ pipeline {
     stages{
          stage('Checkout Stage') {
             steps:{
-                 echo: 'Chekcout'
-                 git branch: 'master',
-                     credentialsId :  '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',
-                     url: 'git@github.com:eorjs37/vue3-bootstrap-veevalidate.git'
+                 echo: "Chekcout"
+                //  git branch: "master",
+                //      credentialsId :  "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",
+                //      url: "git@github.com:eorjs37/vue3-bootstrap-veevalidate.git"
              }
         }
 
