@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages{
-         stage('Checkout Stage') {
+         stage('Checkout') {
             steps:{
                 echo: "Building Container.."
              }
