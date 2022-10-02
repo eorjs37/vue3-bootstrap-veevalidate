@@ -1,5 +1,4 @@
-pipeline {
-    agent any
+node{
     stages{
          stage('Checkout') {
             steps:{
@@ -18,5 +17,4 @@ pipeline {
             }       
         }
     }
-   
 }
