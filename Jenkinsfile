@@ -1,5 +1,5 @@
 node{
-    stage('Clone') {
+    stage('CheckOut') {
         steps:{
             echo 'Clone'
             git branch: "master",
@@ -7,16 +7,21 @@ node{
                 url: 'git@github.com:eorjs37/vue3-bootstrap-veevalidate.git'
         }
     }
+    stage('Install'){
+        steps:{
+            echo "---npm install---"
+            sh "npm install"
+        }
+    }
     stage('Build') {
         steps:{
-            echo "---Build Stage222---"
-            sh "npm install"
+            echo "---npm Build---"
             sh "npm run build"
         }
     }
-    stage('Push') {
+    stage('Deploy') {
         steps:{
-            echo "---Push Stage2222---"
+            echo "---Push---"
         }       
     }
 }
