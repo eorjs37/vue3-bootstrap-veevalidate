@@ -21,7 +21,9 @@ node{
     }
     stage('Deploy') {
         steps:{
-            echo "---Push---"
+            echo "---Deploy---"
+            sh "rm -rf /var/www/vuebootstrap/dist/"
+            sh "mv -f dist/ /var/www/vuebootstrap"
         }       
     }
 }
