@@ -3,25 +3,22 @@ pipeline {
     stages{
          stage('Checkout Stage') {
             steps:{
-                 echo: "Chekcout"
+                echo: "Building Container.."
                 //  git branch: "master",
                 //      credentialsId :  "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",
                 //      url: "git@github.com:eorjs37/vue3-bootstrap-veevalidate.git"
              }
         }
-
         stage('Build Stage') {
-             steps{
+            steps{
                 echo "---Build Stage222---"
             }
             
         }
-
         stage('Push Stage') {
-             steps{
+            steps{
                 echo "---Push Stage2222---"
-            }
-            
+            }       
         }
     }
    
