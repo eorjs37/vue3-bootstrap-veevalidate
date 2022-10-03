@@ -35,6 +35,20 @@
           </b-form-radio>
         </b-col>
       </b-row>
+
+      <b-row>
+        <b-col cols="1" class="label">기간</b-col>
+        <b-col cols="11" class="label">
+          <b-row>
+            <b-col cols="6">
+              <Datepicker v-model="stDate" :enableTimePicker="false" :format="format" />
+            </b-col>
+            <b-col cols="6">
+              <Datepicker v-model="endDate" :enableTimePicker="false" :format="format" />
+            </b-col>
+          </b-row>
+        </b-col>
+      </b-row>
     </div>
 
     <div class="txt-right mt-3">
@@ -112,6 +126,25 @@ const tableObject = () => {
   };
 };
 
+const searchObject = () => {
+  const stDate = ref(new Date());
+  const endDate = ref(new Date());
+
+  const format = date => {
+    const day = date.getDate() > 9 ? date.getDate() : `0${date.getDate()}`;
+    const month = date.getMonth() + 1 > 9 ? date.getMonth() + 1 : `0${date.getMonth() + 1}`;
+    const year = date.getFullYear();
+
+    return `${year}-${month}-${day}`;
+  };
+
+  return {
+    stDate,
+    endDate,
+    format,
+  };
+};
+
 export default {
   setup() {
     const store = useStore();
@@ -134,7 +167,7 @@ export default {
     const selected = ref('');
 
     const { tableData, onLoading, onSelectItem, samplePagingTotal, onMovePageing, sampleSetPage } = tableObject();
-
+    const { stDate, endDate, format } = searchObject();
     const compCountryCode = computed(() => {
       return store.getters['commonCode/getCountryCode'];
     });
@@ -154,6 +187,9 @@ export default {
       onMovePageing,
       samplePagingTotal,
       sampleSetPage,
+      stDate,
+      endDate,
+      format,
       compCountryCode,
     };
   },
