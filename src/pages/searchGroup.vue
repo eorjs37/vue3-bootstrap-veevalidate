@@ -6,7 +6,7 @@
         <b-col cols="6">
           <b-row>
             <b-col cols="2" class="label">이름 </b-col>
-            <b-col cols="10"> <b-form-input class="search-input" placeholder="Enter your name"></b-form-input></b-col>
+            <b-col cols="10"> <b-form-input class="search-input" placeholder="Enter your name" v-model="name"></b-form-input></b-col>
           </b-row>
         </b-col>
 
@@ -129,6 +129,7 @@ const tableObject = () => {
 const searchObject = () => {
   const stDate = ref(new Date());
   const endDate = ref(new Date());
+  const name = ref('');
 
   const format = date => {
     const day = date.getDate() > 9 ? date.getDate() : `0${date.getDate()}`;
@@ -139,6 +140,7 @@ const searchObject = () => {
   };
 
   return {
+    name,
     stDate,
     endDate,
     format,
@@ -167,7 +169,7 @@ export default {
     const selected = ref('');
 
     const { tableData, onLoading, onSelectItem, samplePagingTotal, onMovePageing, sampleSetPage } = tableObject();
-    const { stDate, endDate, format } = searchObject();
+    const { name, stDate, endDate, format } = searchObject();
     const compCountryCode = computed(() => {
       return store.getters['commonCode/getCountryCode'];
     });
@@ -187,6 +189,7 @@ export default {
       onMovePageing,
       samplePagingTotal,
       sampleSetPage,
+      name,
       stDate,
       endDate,
       format,

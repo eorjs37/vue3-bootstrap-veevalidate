@@ -4,7 +4,11 @@
       <Sidebar></Sidebar>
     </b-col>
     <b-col cols="10" class="pl-0 body">
-      <router-view />
+      <router-view v-slot="{ Component }">
+        <keep-alive>
+          <component :is="Component" />
+        </keep-alive>
+      </router-view>
     </b-col>
   </b-row>
 </template>
