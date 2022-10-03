@@ -6,7 +6,7 @@
         <b-col cols="6">
           <b-row>
             <b-col cols="2" class="label">이름 </b-col>
-            <b-col cols="10"> <b-form-input class="search-input" placeholder="Enter your name" v-model="name"></b-form-input></b-col>
+            <b-col cols="10"> <b-form-input class="search-input" placeholder="Enter your name" v-model="search.name"></b-form-input></b-col>
           </b-row>
         </b-col>
 
@@ -41,10 +41,10 @@
         <b-col cols="11" class="label">
           <b-row>
             <b-col cols="6">
-              <Datepicker v-model="stDate" :enableTimePicker="false" :format="format" />
+              <Datepicker v-model="search.stDate" :enableTimePicker="false" :format="format" />
             </b-col>
             <b-col cols="6">
-              <Datepicker v-model="endDate" :enableTimePicker="false" :format="format" />
+              <Datepicker v-model="search.endDate" :enableTimePicker="false" :format="format" />
             </b-col>
           </b-row>
         </b-col>
@@ -68,7 +68,6 @@
 <script>
 import { ref, reactive } from '@vue/reactivity';
 import { computed, onMounted } from '@vue/runtime-core';
-import mock from '@/assets/mock/mock.json';
 import sampleTableData from '@/assets/mock/table.json';
 import { useStore } from 'vuex';
 import _ from 'lodash';
@@ -131,6 +130,12 @@ const searchObject = () => {
   const endDate = ref(new Date());
   const name = ref('');
 
+  const search = reactive({
+    stDate: new Date(),
+    endDate: new Date(),
+    name: '',
+  });
+
   const format = date => {
     const day = date.getDate() > 9 ? date.getDate() : `0${date.getDate()}`;
     const month = date.getMonth() + 1 > 9 ? date.getMonth() + 1 : `0${date.getMonth() + 1}`;
@@ -143,6 +148,7 @@ const searchObject = () => {
     name,
     stDate,
     endDate,
+    search,
     format,
   };
 };
@@ -169,7 +175,7 @@ export default {
     const selected = ref('');
 
     const { tableData, onLoading, onSelectItem, samplePagingTotal, onMovePageing, sampleSetPage } = tableObject();
-    const { name, stDate, endDate, format } = searchObject();
+    const { search, name, stDate, endDate, format } = searchObject();
     const compCountryCode = computed(() => {
       return store.getters['commonCode/getCountryCode'];
     });
@@ -189,6 +195,7 @@ export default {
       onMovePageing,
       samplePagingTotal,
       sampleSetPage,
+      search,
       name,
       stDate,
       endDate,

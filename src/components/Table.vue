@@ -22,7 +22,7 @@
         <template v-if="compBodyData.length > 0 && !loading">
           <tr v-for="(rowItem, index) in compBodyData" :key="'rowItem' + index">
             <td v-if="isCheckBox" class="txt-center carrot-row">
-              <input type="checkbox" class="checkbox" v-model="rowItem.isCheck" @click="rowItem.isCheck = !rowItem.isCheck" />
+              <input type="checkbox" class="checkbox" v-model="rowItem.isCheck" @click="addSelectData(rowItem)" />
               <label for="cb1"></label>
             </td>
             <td
@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import { ref, toRefs } from '@vue/reactivity';
+import { reactive, ref, toRefs } from '@vue/reactivity';
 import { computed, onMounted, watch } from '@vue/runtime-core';
 import _ from 'lodash';
 /**
@@ -61,16 +61,31 @@ import _ from 'lodash';
  */
 const talbeObj = (props, context) => {
   const allChecked = ref(false);
-  const selectItem = [];
+  const selectItem = reactive([]);
   const { tabledata: tableList } = toRefs(props);
 
   const rowSelected = item => {
     context.emit('rowselected', item);
   };
 
+  const addSelectData = bodyItem => {
+    bodyItem.isCheck = !bodyItem.isCheck;
+    if (bodyItem['isCheck']) {
+      selectItem.push(bodyItem);
+    } else {
+      const idx = selectItem.findIndex(find => find['id'] === bodyItem['id']);
+      if (idx > -1) {
+        selectItem.splice(idx, 1);
+      }
+    }
+  };
+
   const compBodyData = computed(() => {
-    console.log('compBodyData');
     const copyData = _.cloneDeep(tableList.value.body);
+
+    copyData.forEach(bodyItem => {
+      bodyItem['isCheck'] = false;
+    });
 
     return copyData;
   });
@@ -78,7 +93,9 @@ const talbeObj = (props, context) => {
   return {
     tableList,
     allChecked,
+    selectItem,
     rowSelected,
+    addSelectData,
     compBodyData,
   };
 };
@@ -112,7 +129,7 @@ export default {
   },
   emits: ['rowselected'],
   setup(props, context) {
-    const { tableList, allChecked, compBodyData, rowSelected } = talbeObj(props, context);
+    const { tableList, allChecked, compBodyData, rowSelected, addSelectData, selectItem } = talbeObj(props, context);
 
     onMounted(() => {});
 
@@ -128,6 +145,8 @@ export default {
     return {
       allChecked,
       rowSelected,
+      addSelectData,
+      selectItem,
       compBodyData,
     };
   },
