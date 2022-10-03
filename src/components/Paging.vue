@@ -70,7 +70,7 @@ const pageObj = (props, context) => {
   };
 
   const movePaging = () => {
-    context.emit('onPaging', page_number);
+    context.emit('onPagingEvent', page_number.value);
   };
 
   const nextRange = () => {
@@ -122,6 +122,12 @@ export default {
       required: false,
       default: 'center',
     },
+    //페이지세팅
+    setPage: {
+      type: Number,
+      required: false,
+      default: 1,
+    },
   },
   emits: ['onPaging'],
 
@@ -140,8 +146,14 @@ export default {
       }
     );
 
+    watch(
+      () => props.setPage,
+      cur => {
+        page_number.value = cur;
+      }
+    );
+
     onMounted(() => {
-      console.log('Paging onMounted');
       totalpaging.value = Math.ceil(props.totaldata / props.pagingdata);
       page_range.value = nextRange();
     });

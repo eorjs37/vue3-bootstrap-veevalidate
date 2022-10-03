@@ -38,15 +38,15 @@
     </div>
 
     <div class="txt-right mt-3">
-      <b-button variant="info" class="search-button">검색</b-button>
+      <b-button variant="info" class="search-button" @click="onMovePageing(1)">검색</b-button>
     </div>
 
     <div class="mt-3">
-      <Table :tabledata="tableData" :loading="onLoading" :tableId="'carrot-sample1'"></Table>
+      <Table :tabledata="tableData" :loading="onLoading" :tableId="'carrot-sample1'" @rowselected="onSelectItem"></Table>
     </div>
 
-    <div class="right mt-3">
-      <Paging :totaldata="30" :pagingdata="5" :pagingrange="5"></Paging>
+    <div class="right mt-3" v-show="!onLoading">
+      <Paging :totaldata="samplePagingTotal" :pagingdata="5" :pagingrange="5" :setPage="sampleSetPage" @onPagingEvent="onMovePageing"></Paging>
     </div>
   </div>
 </template>
@@ -55,8 +55,11 @@
 import { ref, reactive } from '@vue/reactivity';
 import { onMounted } from '@vue/runtime-core';
 import mock from '@/assets/mock/mock.json';
-const sampleData = () => {
+import sampleTableData from '@/assets/mock/table.json';
+const tableObject = () => {
   const onLoading = ref(false);
+  const samplePagingTotal = ref(0);
+  const sampleSetPage = ref(1);
   const tableData = reactive({
     head: [
       {
@@ -79,9 +82,31 @@ const sampleData = () => {
     body: [],
   });
 
+  const onSelectItem = item => {
+    alert(JSON.stringify(item));
+  };
+  const onMovePageing = pagenumber => {
+    mockApi(pagenumber);
+  };
+
+  const mockApi = number => {
+    onLoading.value = true;
+    setTimeout(() => {
+      const { list, totalData } = sampleTableData;
+
+      tableData.body = list[number - 1];
+      samplePagingTotal.value = totalData;
+      sampleSetPage.value = number;
+      onLoading.value = false;
+    }, 1000);
+  };
   return {
     tableData,
     onLoading,
+    samplePagingTotal,
+    sampleSetPage,
+    onSelectItem,
+    onMovePageing,
   };
 };
 
@@ -105,15 +130,10 @@ export default {
 
     const selected = ref('');
 
-    const { tableData, onLoading } = sampleData();
+    const { tableData, onLoading, onSelectItem, samplePagingTotal, onMovePageing, sampleSetPage } = tableObject();
 
     onMounted(() => {
-      onLoading.value = true;
-      setTimeout(() => {
-        console.log(mock);
-        tableData.body = mock[0];
-        onLoading.value = false;
-      }, 2000);
+      onMovePageing(1);
     });
 
     return {
@@ -123,6 +143,10 @@ export default {
       selected,
       tableData,
       onLoading,
+      onSelectItem,
+      onMovePageing,
+      samplePagingTotal,
+      sampleSetPage,
     };
   },
 };
