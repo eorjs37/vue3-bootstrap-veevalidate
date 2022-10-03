@@ -9,6 +9,7 @@
   },
   "rules": {
     "no-unused-vars": "off",
-    "vue/no-unused-components": "warn"
+    "vue/no-unused-components": "warn",
+    "no-unused-labels": "off"
   }
 }

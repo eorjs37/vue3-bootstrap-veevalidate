@@ -14,7 +14,7 @@
           <b-row>
             <b-col cols="2" class="label">국가</b-col>
             <b-col cols="10">
-              <b-form-select class="search-selectbox" :options="options"></b-form-select>
+              <b-form-select class="search-selectbox" :options="compCountryCode"></b-form-select>
             </b-col>
           </b-row>
         </b-col>
@@ -53,9 +53,11 @@
 
 <script>
 import { ref, reactive } from '@vue/reactivity';
-import { onMounted } from '@vue/runtime-core';
+import { computed, onMounted } from '@vue/runtime-core';
 import mock from '@/assets/mock/mock.json';
 import sampleTableData from '@/assets/mock/table.json';
+import { useStore } from 'vuex';
+import _ from 'lodash';
 const tableObject = () => {
   const onLoading = ref(false);
   const samplePagingTotal = ref(0);
@@ -112,6 +114,7 @@ const tableObject = () => {
 
 export default {
   setup() {
+    const store = useStore();
     const options = reactive([
       { value: '', text: '-선택-' },
       { value: 'kor', text: '대한민국' },
@@ -132,6 +135,10 @@ export default {
 
     const { tableData, onLoading, onSelectItem, samplePagingTotal, onMovePageing, sampleSetPage } = tableObject();
 
+    const compCountryCode = computed(() => {
+      return store.getters['commonCode/getCountryCode'];
+    });
+
     onMounted(() => {
       onMovePageing(1);
     });
@@ -147,6 +154,7 @@ export default {
       onMovePageing,
       samplePagingTotal,
       sampleSetPage,
+      compCountryCode,
     };
   },
 };

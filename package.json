@@ -23,7 +23,8 @@
     "vee-validate": "^4.6.2",
     "vue": "^3.0.0",
     "vue-router": "^4.0.13",
-    "vue-router-layout": "^0.4.0"
+    "vue-router-layout": "^0.4.0",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@popperjs/core": "^2.11.5",

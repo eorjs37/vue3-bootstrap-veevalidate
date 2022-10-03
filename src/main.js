@@ -20,6 +20,9 @@ setLocale('ko');
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import '@/utils/fontawesome';
 
+//vuex
+import { store } from '@/store/index';
+
 const app = createApp(App).use(router);
 
 //vee-validate-component
@@ -39,4 +42,6 @@ app.component('FontAwesomeIcon', FontAwesomeIcon);
 app.use(BootstrapVue3);
 //Notifications
 app.use(Notifications);
+//vuex
+app.use(store);
 app.mount('#app');
