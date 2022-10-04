@@ -26,6 +26,7 @@ import { store } from '@/store/index';
 //datepicker(https://vue3datepicker.com/)
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
+import TimePicker from '@/components/TimePicker.vue';
 
 const app = createApp(App).use(router);
 
@@ -38,6 +39,7 @@ app.component('FieldArray', FieldArray);
 //global-component
 app.component('Paging', Paging);
 app.component('Table', Table);
+app.component('TimePicker', TimePicker);
 
 //font-awesome
 app.component('FontAwesomeIcon', FontAwesomeIcon);

@@ -9,7 +9,8 @@ Object.keys(AllRules).forEach(rule => {
   defineRule(rule, AllRules[rule]);
 });
 
-/* custom rules */
+//custom rules
+
 /**
  *
  * @description : 파일 사이즈 체크
@@ -30,6 +31,11 @@ defineRule('filecheck', (value, _, { field }) => {
   }
   return true;
 });
+
+/**
+ * @description : Object 체크
+ */
+defineRule('objectCheck', (value, _, __) => {});
 
 configure({
   generateMessage: localize({

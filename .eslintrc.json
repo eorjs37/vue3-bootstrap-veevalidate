@@ -10,6 +10,7 @@
   "rules": {
     "no-unused-vars": "off",
     "vue/no-unused-components": "warn",
-    "no-unused-labels": "off"
+    "no-unused-labels": "off",
+    "vue/no-mutating-props": "off"
   }
 }
