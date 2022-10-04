@@ -68,6 +68,10 @@ const talbeObj = (props, context) => {
     context.emit('rowselected', item);
   };
 
+  const returnSelectItem = () => {
+    return selectItem;
+  };
+
   const addSelectData = bodyItem => {
     bodyItem.isCheck = !bodyItem.isCheck;
     if (bodyItem['isCheck']) {
@@ -81,6 +85,8 @@ const talbeObj = (props, context) => {
   };
 
   const compBodyData = computed(() => {
+    allChecked.value = false;
+    selectItem.length = 0;
     const copyData = _.cloneDeep(tableList.value.body);
 
     copyData.forEach(bodyItem => {
@@ -94,6 +100,7 @@ const talbeObj = (props, context) => {
     tableList,
     allChecked,
     selectItem,
+    returnSelectItem,
     rowSelected,
     addSelectData,
     compBodyData,
@@ -129,15 +136,23 @@ export default {
   },
   emits: ['rowselected'],
   setup(props, context) {
-    const { tableList, allChecked, compBodyData, rowSelected, addSelectData, selectItem } = talbeObj(props, context);
+    const { tableList, allChecked, compBodyData, rowSelected, returnSelectItem, addSelectData, selectItem } = talbeObj(props, context);
 
     onMounted(() => {});
 
     watch(
       () => allChecked.value,
       cur => {
-        tableList.value.body.forEach(tableItem => {
-          tableItem['isCheck'] = cur;
+        compBodyData.value.forEach(bodyItem => {
+          bodyItem['isCheck'] = cur;
+          if (bodyItem['isCheck']) {
+            selectItem.push(bodyItem);
+          } else {
+            const idx = selectItem.findIndex(find => find['id'] === bodyItem['id']);
+            if (idx > -1) {
+              selectItem.splice(idx, 1);
+            }
+          }
         });
       }
     );
@@ -145,6 +160,7 @@ export default {
     return {
       allChecked,
       rowSelected,
+      returnSelectItem,
       addSelectData,
       selectItem,
       compBodyData,

@@ -14,7 +14,7 @@
           <b-row>
             <b-col cols="2" class="label">국가</b-col>
             <b-col cols="10">
-              <b-form-select class="search-selectbox" :options="compCountryCode"></b-form-select>
+              <b-form-select class="search-selectbox" :options="compCountryCode" v-model="search.country"></b-form-select>
             </b-col>
           </b-row>
         </b-col>
@@ -22,7 +22,7 @@
       <b-row>
         <b-col cols="1" class="label">상태</b-col>
         <b-col cols="11" class="label">
-          <b-form-checkbox inline v-for="option in checkboxOptions" :key="option.value" :value="option.value">
+          <b-form-checkbox inline v-for="option in checkboxOptions" :key="option.value" :value="option.value" v-model="search.classStatus">
             {{ option.text }}
           </b-form-checkbox>
         </b-col>
@@ -30,7 +30,7 @@
       <b-row>
         <b-col cols="1" class="label">재직상태</b-col>
         <b-col cols="11" class="label">
-          <b-form-radio inline v-for="option in radioOptions" :key="option.value" :value="option.value" v-model="selected">
+          <b-form-radio inline v-for="option in radioOptions" :key="option.value" :value="option.value" v-model="search.userStatus">
             {{ option.text }}
           </b-form-radio>
         </b-col>
@@ -53,10 +53,11 @@
 
     <div class="txt-right mt-3">
       <b-button variant="info" class="search-button" @click="onMovePageing(1)">검색</b-button>
+      <b-button variant="success" class="search-button ml-10px" @click="retunrData()">데이터리턴</b-button>
     </div>
 
     <div class="mt-3">
-      <Table :tabledata="tableData" :loading="onLoading" :tableId="'carrot-sample1'" @rowselected="onSelectItem"></Table>
+      <Table ref="table1" :tabledata="tableData" :loading="onLoading" :tableId="'carrot-sample1'" @rowselected="onSelectItem"></Table>
     </div>
 
     <div class="right mt-3" v-show="!onLoading">
@@ -71,6 +72,7 @@ import { computed, onMounted } from '@vue/runtime-core';
 import sampleTableData from '@/assets/mock/table.json';
 import { useStore } from 'vuex';
 import _ from 'lodash';
+import { notify } from '@kyvg/vue3-notification';
 const tableObject = () => {
   const onLoading = ref(false);
   const samplePagingTotal = ref(0);
@@ -126,14 +128,13 @@ const tableObject = () => {
 };
 
 const searchObject = () => {
-  const stDate = ref(new Date());
-  const endDate = ref(new Date());
-  const name = ref('');
-
   const search = reactive({
+    name: '',
+    country: '',
+    classStatus: [],
+    userStatus: '',
     stDate: new Date(),
     endDate: new Date(),
-    name: '',
   });
 
   const format = date => {
@@ -145,9 +146,6 @@ const searchObject = () => {
   };
 
   return {
-    name,
-    stDate,
-    endDate,
     search,
     format,
   };
@@ -173,15 +171,34 @@ export default {
     ]);
 
     const selected = ref('');
+    const table1 = ref(null);
 
     const { tableData, onLoading, onSelectItem, samplePagingTotal, onMovePageing, sampleSetPage } = tableObject();
-    const { search, name, stDate, endDate, format } = searchObject();
+    const { search, format } = searchObject();
     const compCountryCode = computed(() => {
       return store.getters['commonCode/getCountryCode'];
     });
 
+    const retunrData = () => {
+      const { returnSelectItem } = table1.value;
+
+      const result = returnSelectItem();
+
+      if (result.length === 0) {
+        notify({
+          type: 'warn',
+          title: '경고',
+          text: '데이터를 선택해 주세요.',
+        });
+        return false;
+      } else {
+        alert(JSON.stringify(result));
+      }
+    };
+
     onMounted(() => {
       onMovePageing(1);
+      console.log(table1.value);
     });
 
     return {
@@ -189,6 +206,7 @@ export default {
       checkboxOptions,
       radioOptions,
       selected,
+      table1,
       tableData,
       onLoading,
       onSelectItem,
@@ -196,11 +214,9 @@ export default {
       samplePagingTotal,
       sampleSetPage,
       search,
-      name,
-      stDate,
-      endDate,
       format,
       compCountryCode,
+      retunrData,
     };
   },
 };
