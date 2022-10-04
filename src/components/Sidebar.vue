@@ -1,20 +1,6 @@
 <template>
   <div class="sidebar">
     <ul class="menu">
-      <li class="menu-nm" :class="{ active: curPath === 'form' || curPath === 'fileForm' }" @click="move('form')">상위1 메뉴</li>
-      <li>
-        <ul class="sub-menu">
-          <li class="menu-nm" :class="{ active: curPath === 'form' }" @click="move('form')">Form</li>
-          <li class="menu-nm" :class="{ active: curPath === 'fileForm' }" @click="move('fileForm')">FileForm</li>
-        </ul>
-      </li>
-      <li class="menu-nm" :class="{ active: curPath === 'checkbox' || curPath === 'formArray' }" @click="move('checkbox')">상위2 메뉴</li>
-      <li>
-        <ul class="sub-menu">
-          <li class="menu-nm" :class="{ active: curPath === 'checkbox' }" @click="move('checkbox')">checkBox</li>
-          <li class="menu-nm" :class="{ active: curPath === 'formArray' }" @click="move('formArray')">formArray</li>
-        </ul>
-      </li>
       <li class="menu-nm" :class="{ active: curPath === 'searchGroup' }">상위3 메뉴</li>
       <li>
         <ul class="sub-menu">

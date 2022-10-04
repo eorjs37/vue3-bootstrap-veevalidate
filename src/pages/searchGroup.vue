@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-3 search-container">
-    <h1 class="title">검색조건</h1>
+    <h3 class="title">검색조건</h3>
     <div class="search-box">
       <b-row>
         <b-col cols="6">

@@ -9,7 +9,7 @@ const RouterLayout = createRouterLayout(layout => {
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes: [
-    { path: '/', redirect: '/form' },
+    { path: '/', redirect: '/searchGroup' },
     {
       path: '/',
       component: RouterLayout,
