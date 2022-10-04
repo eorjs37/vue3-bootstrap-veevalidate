@@ -2,8 +2,8 @@
   <div class="login">
     <Form @submit="loginModel.onSubmit" ref="loginForm">
       <div class="login-form">
-        <h1>로그인</h1>
-        <div>
+        <h3>로그인</h3>
+        <div class="mt-3">
           <Field v-model="loginModel.userId" id="userId" name="userId" label="아이디" rules="required|email" v-slot="{ field, errors }">
             <b-form-input placeholder="Enter your ID" v-bind="field" :state="errors[0] ? false : null"></b-form-input>
             <b-form-invalid-feedback v-if="errors[0]" id="input-live-feedback"> {{ errors[0] }} </b-form-invalid-feedback>
