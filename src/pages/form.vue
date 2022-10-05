@@ -101,11 +101,13 @@
             <b-row>
               <b-col cols="6">
                 <Field v-model="form.stTime" id="stTime" name="stTime" label="시작시간" rules="required" v-slot="{ field, errors }">
-                  <TimePicker :propTime="field" :error="errors"></TimePicker>
+                  <TimePicker :propTime="form.stTime" :error="errors" :field="field"></TimePicker>
                 </Field>
               </b-col>
               <b-col cols="6">
-                <TimePicker :propTime="form.endTime" :error="[]"></TimePicker>
+                <Field v-model="form.endTime" id="endTime" name="endTime" label="종료시간" rules="required" v-slot="{ field, errors }">
+                  <TimePicker :propTime="form.endTime" :error="errors" :field="field"></TimePicker>
+                </Field>
               </b-col>
             </b-row>
           </b-form-group>

@@ -1,12 +1,12 @@
 <template>
-  <Datepicker v-model="propTime" timePicker placeholder="Select Time">
+  <Datepicker v-model="propTime" timePicker placeholder="Select Time" v-bind="field">
     <template #dp-input="{ value }">
       <input
         class="dp__pointer dp__input_readonly dp__input dp__input_icon_pad dp__input_reg"
         type="text"
         :value="value"
         placeholder="Select Time"
-        :class="error.length > 0 ? error[0] : ''" />
+        :class="error.length > 0 ? 'error' : ''" />
 
       <svg
         version="1.1"
@@ -48,6 +48,13 @@ export default {
         return [];
       },
     },
+    field: {
+      type: Object,
+      required: false,
+      default() {
+        return {};
+      },
+    },
   },
 };
 </script>
@@ -67,5 +74,11 @@ export default {
 
 .time-picker-none {
   display: none;
+}
+
+.input-slot-image {
+  height: 20px;
+  width: auto;
+  margin-left: 5px;
 }
 </style>
