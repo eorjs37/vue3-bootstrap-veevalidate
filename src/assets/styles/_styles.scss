@@ -15,12 +15,30 @@
 }
 
 /* margin */
+.mt-m5px {
+  margin-top: -5px !important;
+}
+
 .ml-5px {
   margin-left: 5px !important;
 }
 
 .ml-10px {
   margin-left: 10px !important;
+}
+
+/* padding */
+.pt-10px {
+  padding-top: 10px;
+}
+
+.pb-10px {
+  padding-bottom: 10px;
+}
+
+/* display */
+.dp-inblock {
+  display: inline-block;
 }
 
 /* 검색조건 */

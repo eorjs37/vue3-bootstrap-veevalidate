@@ -54,15 +54,30 @@ export default {
             PassWord: loginModel.password,
           })
             .then(res => {
-              console.log(res);
               const { msg, success } = res.data;
-              console.log('success : ', success);
               if (success === 'fail') {
                 alert(msg);
+              } else {
+                alert('로그인성공');
               }
             })
             .catch(err => {
-              console.error('login  error : ', err);
+              if (err.response) {
+                // 요청이 전송되었고, 서버는 2xx 외의 상태 코드로 응답했습니다.
+                console.error('login  error : ', err.response.data);
+                console.error('login  error : ', err.response.status);
+                console.error('login  error : ', err.response.headers);
+                alert('서버에 문제가 발생하였습니다.');
+              } else if (err.request) {
+                // 요청이 전송되었지만, 응답이 수신되지 않았습니다.
+                // 'error.request'는 브라우저에서 XMLHtpRequest 인스턴스이고,
+                // node.js에서는 http.ClientRequest 인스턴스입니다.
+                alert('서버가 응답하지 않습니다.');
+                console.error('login  error : ', err.request);
+              } else {
+                console.error('login  error : ', err);
+                alert(err.message);
+              }
             });
         }
       },
