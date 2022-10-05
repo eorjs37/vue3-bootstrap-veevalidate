@@ -12,6 +12,7 @@
       <li>
         <ul class="sub-menu">
           <li class="menu-nm" :class="{ active: curPath === 'form' }" @click="move('form')">Form1</li>
+          <li class="menu-nm" :class="{ active: curPath === 'form2' }" @click="move('form2')">Form2</li>
         </ul>
       </li>
     </ul>
