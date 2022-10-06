@@ -48,6 +48,16 @@
                     <TimePicker :propTime="arrayField.value.stTime" :error="errors" :field="field"></TimePicker>
                   </Field>
                 </b-col>
+                <b-col cols="6">
+                  <Field
+                    v-model="arrayField.value.endTime"
+                    :name="`classTimeList[${fieldIdx}].endTime`"
+                    label="종료시간"
+                    rules="required"
+                    v-slot="{ field, errors }">
+                    <TimePicker :propTime="arrayField.value.endTime" :error="errors" :field="field"></TimePicker>
+                  </Field>
+                </b-col>
               </b-row>
             </FieldArray>
           </b-form-group>
