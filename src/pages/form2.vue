@@ -37,27 +37,15 @@
         <b-col cols="12">
           <b-form-group id="classTimeList" label="수업시간" label-for="classTimeList">
             <FieldArray name="classTimeList" key-path="id" v-slot="{ fields }">
-              <b-row v-for="(field, fieldIdx) in fields" :key="field.key" class="pt-10px pb-10px">
+              <b-row v-for="(arrayField, fieldIdx) in fields" :key="arrayField.key" class="pt-10px pb-10px">
                 <b-col cols="6">
                   <Field
-                    v-model="classForm.classTimeList[fieldIdx].stTime"
-                    :id="`stTime[${fieldIdx}]`"
+                    v-model="arrayField.value.stTime"
                     :name="`classTimeList[${fieldIdx}].stTime`"
                     label="시작시간"
                     rules="required"
                     v-slot="{ field, errors }">
-                    <TimePicker :propTime="classForm.classTimeList[fieldIdx].stTime" :error="errors" :field="field"></TimePicker>
-                  </Field>
-                </b-col>
-                <b-col cols="6">
-                  <Field
-                    v-model="classForm.classTimeList[fieldIdx].endTime"
-                    :id="`endTime[${fieldIdx}]`"
-                    :name="`classTimeList[${fieldIdx}].endTime`"
-                    label="종료시간"
-                    rules="required"
-                    v-slot="{ field, errors }">
-                    <TimePicker :propTime="classForm.classTimeList[fieldIdx].endTime" :error="errors" :field="field"></TimePicker>
+                    <TimePicker :propTime="arrayField.value.stTime" :error="errors" :field="field"></TimePicker>
                   </Field>
                 </b-col>
               </b-row>
