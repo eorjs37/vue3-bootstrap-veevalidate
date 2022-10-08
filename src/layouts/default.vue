@@ -5,7 +5,7 @@
     </b-col>
     <b-col cols="10" class="pl-0 body">
       <router-view v-slot="{ Component }">
-        <keep-alive>
+        <keep-alive include="searchGroup">
           <component :is="Component" />
         </keep-alive>
       </router-view>
