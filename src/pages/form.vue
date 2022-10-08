@@ -115,7 +115,7 @@
       </b-row>
 
       <div class="text-right">
-        <b-button type="submit" variant="info" @click="form.onSubmit()">Submit</b-button>
+        <b-button type="submit" variant="primary" @click="form.onSubmit()">Submit</b-button>
       </div>
     </Form>
   </div>

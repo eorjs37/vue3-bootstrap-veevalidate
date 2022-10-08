@@ -63,13 +63,19 @@
           </b-form-group>
         </b-col>
       </b-row>
+
+      <div class="text-right">
+        <b-button type="button" variant="primary" @click="onSubmit">Submit</b-button>
+      </div>
     </Form>
   </div>
 </template>
 
 <script>
-import { reactive } from '@vue/reactivity';
+import { reactive, ref } from '@vue/reactivity';
+import { onMounted } from '@vue/runtime-core';
 const form2Object = () => {
+  const arrayForm = ref(null);
   const classForm = reactive({
     classCode: '',
     className: '',
@@ -80,16 +86,31 @@ const form2Object = () => {
     ],
   });
 
+  const onSubmit = async () => {
+    const { validate } = arrayForm.value;
+
+    const { valid } = await validate();
+    if (!valid) {
+      alert('필수값을 확인해주세요.');
+    }
+  };
+
   return {
+    arrayForm,
     classForm,
+    onSubmit,
   };
 };
 export default {
   setup() {
-    const { classForm } = form2Object();
+    const { classForm, onSubmit, arrayForm } = form2Object();
+
+    onMounted(() => {});
 
     return {
+      arrayForm,
       classForm,
+      onSubmit,
     };
   },
 };
