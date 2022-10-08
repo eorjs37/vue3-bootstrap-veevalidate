@@ -27,6 +27,10 @@
   margin-left: 10px !important;
 }
 
+.mb-10px {
+  margin-bottom: 10px !important;
+}
+
 /* padding */
 .pt-10px {
   padding-top: 10px;
@@ -99,4 +103,14 @@
 /* errors */
 .error {
   border-color: #dc3545;
+}
+
+/* Description */
+.information {
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 5px 5px rgba(238, 234, 234, 0.9);
+  padding: 25px;
+  border-width: 0;
+  margin-bottom: 40px;
 }

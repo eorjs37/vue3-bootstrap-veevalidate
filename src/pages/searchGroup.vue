@@ -1,6 +1,16 @@
 <template>
   <div class="container mt-3 search-container">
-    <h3 class="title">검색조건</h3>
+    <h3 class="title"><font-awesome-icon icon="fa-solid fa-circle-info" /> 설명</h3>
+    <div class="information">
+      <div>
+        <p>
+          - 설명을 넣는 부분입니다. <br />
+          - 설명을 넣어주세요
+        </p>
+      </div>
+    </div>
+
+    <h3 class="title"><font-awesome-icon icon="fa-solid fa-magnifying-glass" /> 검색</h3>
     <div class="search-box">
       <b-row>
         <b-col cols="6">
