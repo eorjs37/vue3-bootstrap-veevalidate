@@ -11,26 +11,43 @@
     </div>
 
     <Form ref="addForm" class="form">
-        <b-row>
-            <b-col cols="2">
-                <Image></Image>
-            </b-col>
-            <b-col cols="10">
-                <h1>입력</h1>
-            </b-col>
-        </b-row>
+      <b-row>
+        <b-col cols="2">
+          <Image :imageSrc="imgUrl" @onReturnData="getReturnData"></Image>
+        </b-col>
+        <b-col cols="10">
+          <h1>입력</h1>
+        </b-col>
+      </b-row>
     </Form>
   </div>
 </template>
 
 <script>
+import { ref } from '@vue/reactivity';
+
+const form3 = () => {
+  const imgUrl = ref('https://www.carrotenglish.kr/resource/ctmhome/img/phone/main/review.png');
+  const getReturnData = image => {
+    console.log(image);
+  };
+
+  return {
+    imgUrl,
+    getReturnData,
+  };
+};
+
 export default {
-  setup(){
-    
-  }
-}
+  setup() {
+    const { imgUrl, getReturnData } = form3();
+
+    return {
+      imgUrl,
+      getReturnData,
+    };
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
