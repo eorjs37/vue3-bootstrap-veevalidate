@@ -2,8 +2,12 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import BootstrapVue3 from 'bootstrap-vue-3';
+
+//global component
 import Paging from '@/components/Paging.vue';
 import Table from '@/components/Table.vue';
+import Image from '@/components/Image.vue'
+
 import Notifications from '@kyvg/vue3-notification';
 
 //bootstrap3(https://bootstrap-vue.org/)
@@ -40,6 +44,7 @@ app.component('FieldArray', FieldArray);
 app.component('Paging', Paging);
 app.component('Table', Table);
 app.component('TimePicker', TimePicker);
+app.component('Image',Image);
 
 //font-awesome
 app.component('FontAwesomeIcon', FontAwesomeIcon);
