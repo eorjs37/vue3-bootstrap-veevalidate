@@ -1,5 +1,14 @@
 <template>
   <div class="container mt-3">
+    <h3 class="title"><font-awesome-icon icon="fa-solid fa-circle-info" /> 설명</h3>
+    <div class="information">
+      <div>
+        <p>
+          - 설명을 넣는 부분입니다. <br />
+          - 설명을 넣어주세요
+        </p>
+      </div>
+    </div>
     <Form ref="arrayForm" class="form" :initial-values="classForm" v-slot="{ values }">
       <b-row>
         <b-col cols="6">
@@ -36,7 +45,7 @@
       <b-row>
         <b-col cols="12">
           <b-form-group id="classTimeList" label="수업시간" label-for="classTimeList">
-            <FieldArray name="classTimeList" key-path="id" v-slot="{ fields }">
+            <FieldArray name="classTimeList" key-path="id" v-slot="{ fields,push }">
               <b-row v-for="(arrayField, fieldIdx) in fields" :key="arrayField.key" class="pt-10px pb-10px">
                 <b-col cols="3">
                   <Field
@@ -75,7 +84,7 @@
                 </b-col>
 
                 <b-col cols="1" class="txt-right">
-                  <b-button variant="primary">Add</b-button>
+                  <b-button variant="primary" @click="classArray(push)">Add</b-button>
                 </b-col>
               </b-row>
             </FieldArray>
@@ -113,8 +122,6 @@ const form2Object = () => {
   });
 
   const onSubmit = async values => {
-    console.log(values);
-    console.log(arrayForm.value);
     const { validate } = arrayForm.value;
 
     const { valid } = await validate();
@@ -125,6 +132,7 @@ const form2Object = () => {
 
   const inputHandleChange = async (field, validate) => {
     const { value } = field;
+    
     const { valid } = await validate();
 
     if (!valid) {
@@ -132,17 +140,24 @@ const form2Object = () => {
     }
   };
 
+  const classArray = (func) =>{
+    func({
+      day: [], stTime: '', endTime: '' 
+    })
+  }
+
   return {
     arrayForm,
     dayList,
     classForm,
     onSubmit,
     inputHandleChange,
+    classArray
   };
 };
 export default {
   setup() {
-    const { classForm, onSubmit, arrayForm, dayList, inputHandleChange } = form2Object();
+    const { classForm, onSubmit, arrayForm, dayList, inputHandleChange, classArray } = form2Object();
 
     onMounted(() => {});
 
@@ -152,6 +167,7 @@ export default {
       classForm,
       onSubmit,
       inputHandleChange,
+      classArray
     };
   },
 };

@@ -8,7 +8,7 @@
         </ul>
       </li>
 
-      <li class="menu-nm" :class="{ active: curPath === 'form' }">상위2 메뉴</li>
+      <li class="menu-nm" :class="{ active: curPath === 'form' || curPath === 'form2'}">상위2 메뉴</li>
       <li>
         <ul class="sub-menu">
           <li class="menu-nm" :class="{ active: curPath === 'form' }" @click="move('form')">Form1</li>

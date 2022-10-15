@@ -1,5 +1,14 @@
 <template>
   <div class="container mt-3">
+    <h3 class="title"><font-awesome-icon icon="fa-solid fa-circle-info" /> 설명</h3>
+    <div class="information">
+      <div>
+        <p>
+          - 설명을 넣는 부분입니다. <br />
+          - 설명을 넣어주세요
+        </p>
+      </div>
+    </div>
     <Form @submit="form.onSubmit" ref="addForm" class="form">
       <b-row>
         <b-col lg="6" sm="12">
