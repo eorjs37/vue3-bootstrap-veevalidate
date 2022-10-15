@@ -1,9 +1,10 @@
 <template>
-  <div class="img-thumbnail">
+  <div class="img-thumbnail" :class="{ error: errors.length > 0 ? true : false }">
     <img class="img" :src="imgSrc" alt="logo" />
   </div>
   <div class="img-btn-group">
-    <button type="button" class="btn btn-success" @click="clickImage()">추가</button><button type="button" class="btn btn-danger">삭제</button>
+    <button type="button" class="btn btn-success" @click="clickImage()">추가</button
+    ><button type="button" class="btn btn-danger" @click="deleteImage()">삭제</button>
   </div>
   <input type="file" hidden id="imgfile" ref="imgfile" />
 </template>
@@ -40,12 +41,18 @@ const imgObj = (props, context) => {
     imgfile.value.addEventListener('change', imgChangeEvent);
   };
 
+  const deleteImage = () => {
+    imgSrc.value = require('@/assets/images/user.png');
+    context.emit('onReturnData', null);
+  };
+
   return {
     imgSrc,
     imgfile,
     clickImage,
     imgChangeEvent,
     imgAddEventListener,
+    deleteImage,
   };
 };
 
@@ -55,10 +62,17 @@ export default {
       type: String,
       required: false,
     },
+    errors: {
+      type: Array,
+      required: false,
+      default: () => {
+        return [];
+      },
+    },
   },
   emits: ['onReturnData'],
   setup(props, context) {
-    const { imgSrc, imgfile, clickImage, imgAddEventListener } = imgObj(props, context);
+    const { imgSrc, imgfile, clickImage, imgAddEventListener, deleteImage } = imgObj(props, context);
 
     onMounted(() => {
       //이벤트 등록
@@ -73,6 +87,7 @@ export default {
       imgSrc,
       imgfile,
       clickImage,
+      deleteImage,
     };
   },
 };
@@ -92,6 +107,10 @@ export default {
   .img {
     width: 100%;
     height: 100%;
+  }
+
+  &.error {
+    border: 1px solid #ff0000;
   }
 }
 

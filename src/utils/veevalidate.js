@@ -33,9 +33,11 @@ defineRule('filecheck', (value, _, { field }) => {
 });
 
 /**
- * @description : Object 체크
+ * @description : image size 체크
  */
-defineRule('objectCheck', (value, _, __) => {});
+defineRule('imageCheck', value => {
+  return true;
+});
 
 configure({
   generateMessage: localize({
