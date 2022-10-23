@@ -43,6 +43,24 @@
               </Field>
             </b-col>
           </b-row>
+
+          <b-row>
+            <b-col cols="6">
+              <Field id="language" name="language" label="사용언어" rules="required" v-slot="{ field, errors }">
+                <b-form-group id="language" label="사용언어" label-for="language" label-cols-sm="2" content-cols-sm="10">
+                  <b-form-checkbox-group
+                    v-model="formobj.language"
+                    id="language"
+                    :options="langulagelist"
+                    class="pbt-auto"
+                    v-bind="field"
+                    :state="errors[0] ? false : null">
+                  </b-form-checkbox-group>
+                  <b-form-invalid-feedback :state="false" v-if="errors[0]"> {{ errors[0] }}</b-form-invalid-feedback>
+                </b-form-group>
+              </Field>
+            </b-col>
+          </b-row>
         </b-col>
 
         <div class="text-right">
@@ -62,12 +80,13 @@ const form3 = () => {
     profile: null,
     name: '',
     county: '',
+    language: [],
   });
 
   const imgUrl = ref(null);
+  const selected = ref([]);
 
   const getReturnData = image => {
-    console.log(image);
     formobj.profile = image;
   };
 
@@ -86,6 +105,7 @@ const form3 = () => {
     profileForm,
     formobj,
     imgUrl,
+    selected,
     getReturnData,
     onSubmit,
   };
@@ -93,18 +113,26 @@ const form3 = () => {
 
 export default {
   setup() {
-    const { profileForm, formobj, imgUrl, getReturnData, onSubmit } = form3();
+    const { profileForm, formobj, imgUrl, selected, getReturnData, onSubmit } = form3();
     const countrySelect = reactive([
       { value: '', text: '- 선택 -' },
       { value: 'ko', text: '한국' },
       { value: 'am', text: '미국' },
     ]);
 
+    const langulagelist = reactive([
+      { value: 'en', text: '영어' },
+      { value: 'ko', text: '한국어' },
+      { value: 'jp', text: '일본어' },
+    ]);
+
     return {
       profileForm,
       formobj,
       imgUrl,
+      selected,
       countrySelect,
+      langulagelist,
       getReturnData,
       onSubmit,
     };
@@ -112,4 +140,4 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss"></style>
