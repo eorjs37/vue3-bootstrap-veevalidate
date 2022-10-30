@@ -45,7 +45,7 @@
       <b-row>
         <b-col cols="12">
           <b-form-group id="classTimeList" label="수업시간" label-for="classTimeList">
-            <FieldArray name="classTimeList" key-path="id" v-slot="{ fields,push }">
+            <FieldArray name="classTimeList" key-path="id" v-slot="{ fields, push }">
               <b-row v-for="(arrayField, fieldIdx) in fields" :key="arrayField.key" class="pt-10px pb-10px">
                 <b-col cols="3">
                   <Field
@@ -130,9 +130,7 @@ const form2Object = () => {
     }
   };
 
-  const inputHandleChange = async (field, validate) => {
-    const { value } = field;
-    
+  const inputHandleChange = async (_, validate) => {
     const { valid } = await validate();
 
     if (!valid) {
@@ -140,11 +138,13 @@ const form2Object = () => {
     }
   };
 
-  const classArray = (func) =>{
+  const classArray = func => {
     func({
-      day: [], stTime: '', endTime: '' 
-    })
-  }
+      day: [],
+      stTime: '',
+      endTime: '',
+    });
+  };
 
   return {
     arrayForm,
@@ -152,7 +152,7 @@ const form2Object = () => {
     classForm,
     onSubmit,
     inputHandleChange,
-    classArray
+    classArray,
   };
 };
 export default {
@@ -167,7 +167,7 @@ export default {
       classForm,
       onSubmit,
       inputHandleChange,
-      classArray
+      classArray,
     };
   },
 };
