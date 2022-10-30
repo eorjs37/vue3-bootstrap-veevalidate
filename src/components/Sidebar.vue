@@ -8,12 +8,22 @@
         </ul>
       </li>
 
-      <li class="menu-nm" :class="{ active: curPath === 'form' || curPath === 'form2' || curPath === 'form3'}">상위2 메뉴</li>
+      <li class="menu-nm" :class="{ active: curPath === 'form' || curPath === 'form2' || curPath === 'form3' || curPath === 'calendar' }">
+        상위2 메뉴
+      </li>
       <li>
         <ul class="sub-menu">
           <li class="menu-nm" :class="{ active: curPath === 'form' }" @click="move('form')">Form1</li>
           <li class="menu-nm" :class="{ active: curPath === 'form2' }" @click="move('form2')">Form2</li>
           <li class="menu-nm" :class="{ active: curPath === 'form3' }" @click="move('form3')">Form3</li>
+          <li class="menu-nm" :class="{ active: curPath === 'calendar' }" @click="move('calendar')">calendar</li>
+        </ul>
+      </li>
+
+      <li class="menu-nm" :class="{ active: curPath === 'grid' }">상위3 메뉴</li>
+      <li>
+        <ul class="sub-menu">
+          <li class="menu-nm" :class="{ active: curPath === 'grid' }" @click="move('grid')">Grid</li>
         </ul>
       </li>
     </ul>
