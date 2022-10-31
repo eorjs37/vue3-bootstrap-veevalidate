@@ -67,7 +67,17 @@
     </div>
 
     <div class="mt-3">
-      <Table ref="table1" :tabledata="tableData" :loading="onLoading" :tableId="'carrot-sample1'" @rowselected="onSelectItem"></Table>
+      <Table ref="table1" :tabledata="tableData" :loading="onLoading" :tableId="'carrot-sample1'" @rowselected="onSelectItem">
+        <!-- ##### Head ##### -->
+        <template #HeadCompany="{ headitem }">
+          <div class="txt-right">{{ headitem.colname }}</div>
+        </template>
+
+        <!-- ##### Body ##### -->
+        <template #BodyCompany>
+          <div class="txt-right">회사</div>
+        </template>
+      </Table>
     </div>
 
     <div class="right mt-3" v-show="!onLoading">

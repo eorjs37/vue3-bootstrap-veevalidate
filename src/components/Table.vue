@@ -9,11 +9,11 @@
             <label for="cb1"></label>
           </th>
           <template v-for="(item, index) in tabledata.head" :key="'head' + index">
-            <slot :name="'Head' + item.headkey">
-              <th class="txt-center">
+            <th class="txt-center">
+              <slot :name="'Head' + item.headkey" :headitem="item">
                 {{ item.colname }}
-              </th>
-            </slot>
+              </slot>
+            </th>
           </template>
         </tr>
       </thead>
@@ -31,7 +31,7 @@
               @click="rowSelected(rowItem)"
               class="carrot-row"
               :id="headitem.headkey">
-              <slot :name="headitem.headkey" :row="rowItem">
+              <slot :name="'Body' + headitem.headkey" :row="rowItem">
                 {{ rowItem[headitem.headkey] }}
               </slot>
             </td>
