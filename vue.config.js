@@ -9,6 +9,7 @@ module.exports = {
       config.output.chunkFilename = 'js/[name].js';
     }
   },
+
   pluginOptions: {
     autoRouting: {
       chunkNamePrefix: 'page-',

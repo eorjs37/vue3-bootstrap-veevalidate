@@ -11,10 +11,10 @@
 <script>
 import Grid from 'tui-grid';
 import 'tui-grid/dist/tui-grid.css';
-import { onMounted, ref } from 'vue';
+import { onMounted } from 'vue';
 
+var gridInstance = null;
 const gridObj = () => {
-  let gridInstance = null;
   /**
    * @description : Grid 생성
    */
@@ -31,10 +31,12 @@ const gridObj = () => {
         {
           header: 'Name',
           name: 'name',
+          editor: 'text',
         },
         {
           header: 'Artist',
           name: 'artist',
+          editor: 'text',
         },
         {
           header: 'Release',
@@ -84,7 +86,21 @@ const gridObj = () => {
       },
     ]); // Call API of instance's public method
 
-    Grid.applyTheme('striped'); // Call API of static method
+    Grid.applyTheme('clean', {
+      cell: {
+        normal: {
+          border: '#FF7F50',
+        },
+      },
+    }); // Call API of static method
+
+    gridInstance.getData().forEach((_, gridIndex) => {
+      gridInstance.addCellClassName(gridIndex, 'rowNum', 'border');
+      gridInstance.addCellClassName(gridIndex, 'name', 'border');
+      gridInstance.addCellClassName(gridIndex, 'artist', 'border');
+      gridInstance.addCellClassName(gridIndex, 'release', 'border');
+      gridInstance.addCellClassName(gridIndex, 'genre', 'border');
+    });
 
     //드래그 이벤트 감시
     dragEvent();
@@ -155,5 +171,9 @@ export default {
 <style lang="scss" scoped>
 .grid {
   margin-top: 10px;
+}
+
+.border {
+  border: 1px solid #000;
 }
 </style>
