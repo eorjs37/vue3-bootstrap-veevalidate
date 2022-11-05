@@ -14,6 +14,33 @@ import 'tui-grid/dist/tui-grid.css';
 import { onMounted } from 'vue';
 
 var gridInstance = null;
+
+class CustomButtonRenderer {
+  constructor(props) {
+    const el = document.createElement('button');
+
+    el.textContent = '수정';
+    el.classList.add('cell-btn');
+
+    el.addEventListener('click', ev => {
+      alert('click');
+      console.log('props : ', props);
+
+      console.log('gridInstance : ', gridInstance);
+    });
+
+    this.el = el;
+  }
+
+  getElement() {
+    return this.el;
+  }
+
+  render(props) {
+    this.el.value = String(props.value);
+  }
+}
+
 const gridObj = () => {
   /**
    * @description : Grid 생성
@@ -27,24 +54,37 @@ const gridObj = () => {
         {
           header: 'rowNum',
           name: 'rowNum',
+          align: 'center',
         },
         {
           header: 'Name',
           name: 'name',
           editor: 'text',
+          align: 'center',
         },
         {
           header: 'Artist',
           name: 'artist',
           editor: 'text',
+          align: 'center',
         },
         {
           header: 'Release',
           name: 'release',
+          align: 'center',
         },
         {
           header: 'Genre',
           name: 'genre',
+          align: 'center',
+        },
+        {
+          header: '저장',
+          name: 'modify',
+          align: 'center',
+          renderer: {
+            type: CustomButtonRenderer,
+          },
         },
       ],
       draggable: true,
@@ -59,6 +99,7 @@ const gridObj = () => {
         release: '2016.03.26',
         genre: 'Pop',
         order: 1,
+        modify: true,
       },
       {
         rowNum: 2,
@@ -67,6 +108,7 @@ const gridObj = () => {
         release: '2016.03.26',
         genre: 'Pop',
         order: 2,
+        modify: true,
       },
       {
         rowNum: 3,
@@ -75,6 +117,7 @@ const gridObj = () => {
         release: '2016.03.26',
         genre: 'Pop',
         order: 3,
+        modify: true,
       },
       {
         rowNum: 4,
@@ -83,6 +126,7 @@ const gridObj = () => {
         release: '2016.03.26',
         genre: 'Pop',
         order: 4,
+        modify: true,
       },
     ]); // Call API of instance's public method
 
@@ -100,6 +144,7 @@ const gridObj = () => {
       gridInstance.addCellClassName(gridIndex, 'artist', 'border');
       gridInstance.addCellClassName(gridIndex, 'release', 'border');
       gridInstance.addCellClassName(gridIndex, 'genre', 'border');
+      gridInstance.addCellClassName(gridIndex, 'modify', 'border');
     });
 
     //드래그 이벤트 감시
