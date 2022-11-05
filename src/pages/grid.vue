@@ -15,6 +15,25 @@ import { onMounted } from 'vue';
 
 var gridInstance = null;
 
+class CustomStateRenderer {
+  constructor(props) {
+    const el = document.createElement('img');
+
+    el.classList.add('modify');
+    el.src = require('../assets/images/grid/edit.png');
+
+    this.el = el;
+  }
+
+  getElement() {
+    return this.el;
+  }
+
+  render(props) {
+    this.el.value = String(props.value);
+  }
+}
+
 class CustomButtonRenderer {
   constructor(props) {
     const el = document.createElement('button');
@@ -51,6 +70,14 @@ const gridObj = () => {
       scrollX: false,
       scrollY: false,
       columns: [
+        {
+          header: '상태',
+          name: 'isModify',
+          align: 'center',
+          renderer: {
+            type: CustomStateRenderer,
+          },
+        },
         {
           header: 'rowNum',
           name: 'rowNum',
@@ -93,6 +120,7 @@ const gridObj = () => {
 
     gridInstance.resetData([
       {
+        isModify: false,
         rowNum: 1,
         name: 'Beautiful Lies',
         artist: 'Birdy',
@@ -102,6 +130,7 @@ const gridObj = () => {
         modify: true,
       },
       {
+        isModify: false,
         rowNum: 2,
         name: 'Beautiful Lies',
         artist: 'Birdy',
@@ -111,6 +140,7 @@ const gridObj = () => {
         modify: true,
       },
       {
+        isModify: false,
         rowNum: 3,
         name: 'Beautiful Lies',
         artist: 'Birdy',
@@ -120,6 +150,7 @@ const gridObj = () => {
         modify: true,
       },
       {
+        isModify: false,
         rowNum: 4,
         name: 'Beautiful Lies',
         artist: 'Birdy',
@@ -139,6 +170,7 @@ const gridObj = () => {
     }); // Call API of static method
 
     gridInstance.getData().forEach((_, gridIndex) => {
+      gridInstance.addCellClassName(gridIndex, 'isModify', 'border');
       gridInstance.addCellClassName(gridIndex, 'rowNum', 'border');
       gridInstance.addCellClassName(gridIndex, 'name', 'border');
       gridInstance.addCellClassName(gridIndex, 'artist', 'border');
@@ -149,6 +181,9 @@ const gridObj = () => {
 
     //드래그 이벤트 감시
     dragEvent();
+
+    //grid after change
+    gridAfterChange();
   };
 
   /**
@@ -188,6 +223,21 @@ const gridObj = () => {
       array.forEach((arr, index) => {
         arr.order = index + 1;
       });
+    });
+  };
+
+  /**
+   * @description : grid afterChange
+   */
+  const gridAfterChange = () => {
+    gridInstance.on('afterChange', evt => {
+      console.log(evt);
+      console.log('afterChange');
+      const { changes } = evt;
+      if (changes.length > 0) {
+        console.log(changes[0]['rowKey']);
+        gridInstance.setValue(changes[0]['rowKey'], 'isModify', true);
+      }
     });
   };
 
