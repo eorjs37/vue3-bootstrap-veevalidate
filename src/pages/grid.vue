@@ -4,15 +4,17 @@
     <div class="text-right">
       <b-button type="button" variant="primary">데이터 추가</b-button>
     </div>
+    <h1>{{ test }}</h1>
     <div id="grid" class="grid"></div>
   </div>
+  <ModalVue :visible="modalShow" @closeModal="onCloseModal"></ModalVue>
 </template>
 
 <script>
 import Grid from 'tui-grid';
 import 'tui-grid/dist/tui-grid.css';
-import { onMounted } from 'vue';
-
+import { onMounted, ref } from 'vue';
+import ModalVue from '@/components/Modal.vue';
 var gridInstance = null;
 
 class CustomStateRenderer {
@@ -21,7 +23,6 @@ class CustomStateRenderer {
 
     el.classList.add('modify');
     el.src = require('../assets/images/grid/edit.png');
-
     this.el = el;
   }
 
@@ -38,14 +39,14 @@ class CustomButtonRenderer {
   constructor(props) {
     const el = document.createElement('button');
 
+    const { modalShows } = props.columnInfo.renderer.options;
+
     el.textContent = '수정';
     el.classList.add('cell-btn');
 
     el.addEventListener('click', ev => {
       alert('click');
-      console.log('props : ', props);
-
-      console.log('gridInstance : ', gridInstance);
+      modalShows.value = !modalShows.value;
     });
 
     this.el = el;
@@ -61,6 +62,8 @@ class CustomButtonRenderer {
 }
 
 const gridObj = () => {
+  const test = ref(1);
+  const modalShow = ref(false);
   /**
    * @description : Grid 생성
    */
@@ -111,6 +114,12 @@ const gridObj = () => {
           align: 'center',
           renderer: {
             type: CustomButtonRenderer,
+            options: {
+              min: 0,
+              max: 30,
+              test: test,
+              modalShows: modalShow,
+            },
           },
         },
       ],
@@ -241,16 +250,30 @@ const gridObj = () => {
     });
   };
 
+  /**
+   * @description : onCloseModal
+   */
+  const onCloseModal = () => {
+    modalShow.value = false;
+  };
+
   return {
     gridInstance,
     instancdGrid,
     addData,
+    test,
+    modalShow,
+    onCloseModal,
   };
 };
 
 export default {
+  components: {
+    ModalVue,
+  },
   setup() {
-    const { gridInstance, instancdGrid, addData } = gridObj();
+    const { gridInstance, instancdGrid, addData, test, modalShow, onCloseModal } = gridObj();
+
     onMounted(() => {
       instancdGrid();
     });
@@ -258,6 +281,9 @@ export default {
     return {
       gridInstance,
       addData,
+      test,
+      modalShow,
+      onCloseModal,
     };
   },
 };
