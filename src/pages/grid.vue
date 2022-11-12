@@ -46,8 +46,13 @@ class CustomButtonRenderer {
     el.classList.add('cell-btn');
 
     el.addEventListener('click', _ => {
-      alert('저장되었습니다.');
-      func(rowKey, false);
+      const modify = gridInstance.getValue(rowKey, 'isModify');
+      if (!modify) {
+        alert('저장할 내용이 없습니다.');
+      } else {
+        alert('저장 되었습니다.');
+        func(rowKey, false);
+      }
     });
 
     this.el = el;
@@ -243,19 +248,19 @@ const gridObj = () => {
     gridInstance.on('afterChange', evt => {
       const { changes } = evt;
       if (changes.length > 0) {
-        const { prevValue, rowKey, value } = changes[0];
+        const { columnName, prevValue, rowKey, value } = changes[0];
 
         if (prevValue !== value) {
-          gridInstance.setValue(changes[0]['rowKey'], 'isModify', true);
-          setModify(rowKey, true);
+          if (columnName !== 'isModify') {
+            setModify(rowKey, true);
+          }
         }
-
-        //addCellClassName
       }
     });
   };
 
   const setModify = (rowKey, value = false) => {
+    gridInstance.setValue(rowKey, 'isModify', value);
     const el = gridInstance.getElement(rowKey, 'isModify');
     const child = el.childNodes;
     if (value) {
