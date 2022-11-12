@@ -4,7 +4,6 @@
     <div class="text-right">
       <b-button type="button" variant="primary">데이터 추가</b-button>
     </div>
-    <h1>{{ test }}</h1>
     <div id="grid" class="grid"></div>
   </div>
   <ModalVue :visible="modalShow" @closeModal="onCloseModal"></ModalVue>
@@ -18,16 +17,18 @@ import ModalVue from '@/components/Modal.vue';
 var gridInstance = null;
 
 class CustomStateRenderer {
-  constructor(props) {
+  constructor(_) {
     const el = document.createElement('img');
 
-    el.classList.add('modify');
-    el.src = require('../assets/images/grid/edit.png');
     this.el = el;
   }
 
   getElement() {
     return this.el;
+  }
+
+  setModify(path) {
+    this.el.src = path;
   }
 
   render(props) {
@@ -38,15 +39,15 @@ class CustomStateRenderer {
 class CustomButtonRenderer {
   constructor(props) {
     const el = document.createElement('button');
+    const { rowKey } = props;
+    const { modalShows, func } = props.columnInfo.renderer.options;
 
-    const { modalShows } = props.columnInfo.renderer.options;
-
-    el.textContent = '수정';
+    el.textContent = '저장';
     el.classList.add('cell-btn');
 
-    el.addEventListener('click', ev => {
-      alert('click');
-      modalShows.value = !modalShows.value;
+    el.addEventListener('click', _ => {
+      alert('저장되었습니다.');
+      func(rowKey, false);
     });
 
     this.el = el;
@@ -62,7 +63,6 @@ class CustomButtonRenderer {
 }
 
 const gridObj = () => {
-  const test = ref(1);
   const modalShow = ref(false);
   /**
    * @description : Grid 생성
@@ -80,6 +80,7 @@ const gridObj = () => {
           renderer: {
             type: CustomStateRenderer,
           },
+          width: 40,
         },
         {
           header: 'rowNum',
@@ -117,8 +118,8 @@ const gridObj = () => {
             options: {
               min: 0,
               max: 30,
-              test: test,
               modalShows: modalShow,
+              func: setModify,
             },
           },
         },
@@ -240,14 +241,28 @@ const gridObj = () => {
    */
   const gridAfterChange = () => {
     gridInstance.on('afterChange', evt => {
-      console.log(evt);
-      console.log('afterChange');
       const { changes } = evt;
       if (changes.length > 0) {
-        console.log(changes[0]['rowKey']);
-        gridInstance.setValue(changes[0]['rowKey'], 'isModify', true);
+        const { prevValue, rowKey, value } = changes[0];
+
+        if (prevValue !== value) {
+          gridInstance.setValue(changes[0]['rowKey'], 'isModify', true);
+          setModify(rowKey, true);
+        }
+
+        //addCellClassName
       }
     });
+  };
+
+  const setModify = (rowKey, value = false) => {
+    const el = gridInstance.getElement(rowKey, 'isModify');
+    const child = el.childNodes;
+    if (value) {
+      child[0].classList.add('modify-img');
+    } else {
+      child[0].classList.remove('modify-img');
+    }
   };
 
   /**
@@ -261,7 +276,7 @@ const gridObj = () => {
     gridInstance,
     instancdGrid,
     addData,
-    test,
+
     modalShow,
     onCloseModal,
   };
@@ -272,7 +287,7 @@ export default {
     ModalVue,
   },
   setup() {
-    const { gridInstance, instancdGrid, addData, test, modalShow, onCloseModal } = gridObj();
+    const { gridInstance, instancdGrid, addData, modalShow, onCloseModal } = gridObj();
 
     onMounted(() => {
       instancdGrid();
@@ -281,13 +296,22 @@ export default {
     return {
       gridInstance,
       addData,
-      test,
       modalShow,
       onCloseModal,
     };
   },
 };
 </script>
+
+<style lang="scss">
+.modify-img {
+  width: 20px;
+  height: 20px;
+  background: url('~@/assets/images/grid/edit.png');
+  background-size: 20px 20px;
+  border: none !important;
+}
+</style>
 
 <style lang="scss" scoped>
 .grid {
