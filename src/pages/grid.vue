@@ -59,10 +59,10 @@ class CustomButtonRenderer {
 
       if (rowType === INSERT) {
         alert('저장 되었습니다.');
-        func(rowKey, false);
+        func(rowKey, NORMAL);
       } else if (rowType === UPDATED) {
         alert('저장 되었습니다.');
-        func(rowKey, false);
+        func(rowKey, NORMAL);
       } else {
         alert('저장할 내용이 없습니다.');
       }
@@ -137,7 +137,7 @@ const gridObj = () => {
               min: 0,
               max: 30,
               modalShows: modalShow,
-              func: setModify,
+              func: setRowType,
             },
           },
         },
@@ -272,8 +272,9 @@ const gridObj = () => {
         const { columnName, prevValue, rowKey, value } = changes[0];
 
         if (prevValue !== value) {
-          if (columnName !== 'isModify') {
-            setModify(rowKey, true);
+          if (columnName !== 'isModify' && columnName !== 'rowType') {
+            // setModify(rowKey, true);
+            setRowType(rowKey, UPDATED);
           }
         }
       }
@@ -281,16 +282,32 @@ const gridObj = () => {
   };
 
   const setModify = (rowKey, value = false) => {
-    gridInstance.setValue(rowKey, 'isModify', value);
-    const el = gridInstance.getElement(rowKey, 'isModify');
+    // gridInstance.setValue(rowKey, 'isModify', value);
+    // const el = gridInstance.getElement(rowKey, 'isModify');
+    // const child = el.childNodes;
+    // if (value) {
+    //   child[0].classList.add('state-img');
+    //   child[0].classList.add('modify-img');
+    // } else {
+    //   child[0].classList.remove('state-img');
+    //   child[0].classList.remove('modify-img');
+    // }
+  };
 
+  const setRowType = (rowKey, type = NORMAL) => {
+    gridInstance.setValue(rowKey, 'rowType', type);
+    const el = gridInstance.getElement(rowKey, 'isModify');
     const child = el.childNodes;
-    if (value) {
-      child[0].classList.add('state-img');
-      child[0].classList.add('modify-img');
-    } else {
+    if (type === NORMAL) {
       child[0].classList.remove('state-img');
       child[0].classList.remove('modify-img');
+      child[0].classList.remove('insert-img');
+    } else if (type === INSERT) {
+      child[0].classList.add('state-img');
+      child[0].classList.add('insert-img');
+    } else if (type === UPDATED) {
+      child[0].classList.add('state-img');
+      child[0].classList.add('modify-img');
     }
   };
 
@@ -308,6 +325,7 @@ const gridObj = () => {
 
     modalShow,
     onCloseModal,
+    setRowType,
   };
 };
 
