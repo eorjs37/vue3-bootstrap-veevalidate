@@ -2,7 +2,7 @@
   <div class="container mt-3">
     <h1>Grid</h1>
     <div class="text-right">
-      <b-button type="button" variant="primary">데이터 추가</b-button>
+      <b-button type="button" variant="primary" @click="addData">데이터 추가</b-button>
     </div>
     <div id="grid" class="grid"></div>
   </div>
@@ -14,13 +14,21 @@ import Grid from 'tui-grid';
 import 'tui-grid/dist/tui-grid.css';
 import { onMounted, ref } from 'vue';
 import ModalVue from '@/components/Modal.vue';
+import { INSERT, NORMAL, UPDATED } from '@/utils/rowType';
 var gridInstance = null;
 
 class CustomStateRenderer {
-  constructor(_) {
+  constructor(props) {
     const el = document.createElement('img');
 
     this.el = el;
+
+    const { rowKey } = props;
+    const rowType = gridInstance.getValue(rowKey, 'rowType');
+    if (rowType === INSERT) {
+      el.classList.add('state-img');
+      el.classList.add('insert-img');
+    }
   }
 
   getElement() {
@@ -47,11 +55,16 @@ class CustomButtonRenderer {
 
     el.addEventListener('click', _ => {
       const modify = gridInstance.getValue(rowKey, 'isModify');
-      if (!modify) {
-        alert('저장할 내용이 없습니다.');
-      } else {
+      const rowType = gridInstance.getValue(rowKey, 'rowType');
+
+      if (rowType === INSERT) {
         alert('저장 되었습니다.');
         func(rowKey, false);
+      } else if (rowType === UPDATED) {
+        alert('저장 되었습니다.');
+        func(rowKey, false);
+      } else {
+        alert('저장할 내용이 없습니다.');
       }
     });
 
@@ -143,6 +156,7 @@ const gridObj = () => {
         genre: 'Pop',
         order: 1,
         modify: true,
+        rowType: NORMAL,
       },
       {
         isModify: false,
@@ -153,6 +167,7 @@ const gridObj = () => {
         genre: 'Pop',
         order: 2,
         modify: true,
+        rowType: NORMAL,
       },
       {
         isModify: false,
@@ -163,6 +178,7 @@ const gridObj = () => {
         genre: 'Pop',
         order: 3,
         modify: true,
+        rowType: NORMAL,
       },
       {
         isModify: false,
@@ -173,6 +189,7 @@ const gridObj = () => {
         genre: 'Pop',
         order: 4,
         modify: true,
+        rowType: NORMAL,
       },
     ]); // Call API of instance's public method
 
@@ -184,15 +201,7 @@ const gridObj = () => {
       },
     }); // Call API of static method
 
-    gridInstance.getData().forEach((_, gridIndex) => {
-      gridInstance.addCellClassName(gridIndex, 'isModify', 'border');
-      gridInstance.addCellClassName(gridIndex, 'rowNum', 'border');
-      gridInstance.addCellClassName(gridIndex, 'name', 'border');
-      gridInstance.addCellClassName(gridIndex, 'artist', 'border');
-      gridInstance.addCellClassName(gridIndex, 'release', 'border');
-      gridInstance.addCellClassName(gridIndex, 'genre', 'border');
-      gridInstance.addCellClassName(gridIndex, 'modify', 'border');
-    });
+    setBorderCss();
 
     //드래그 이벤트 감시
     dragEvent();
@@ -205,26 +214,38 @@ const gridObj = () => {
    * @description : 데이터 추가
    */
   const addData = () => {
+    const rowData = gridInstance.getData();
+    const maxRowNum = rowData.length > 0 ? Math.max(...rowData.map(gridItem => gridItem.rowNum)) + 1 : 0;
     gridInstance.appendRows([
       {
+        isModify: false,
+        rowNum: maxRowNum,
         name: 'Beautiful Lies',
         artist: 'Birdy',
         release: '2016.03.26',
         genre: 'Pop',
-      },
-      {
-        name: 'Beautiful Lies',
-        artist: 'Birdy',
-        release: '2016.03.26',
-        genre: 'Pop',
-      },
-      {
-        name: 'Beautiful Lies',
-        artist: 'Birdy',
-        release: '2016.03.26',
-        genre: 'Pop',
+        order: maxRowNum,
+        modify: true,
+        rowType: INSERT,
       },
     ]);
+
+    setBorderCss();
+  };
+
+  /**
+   * @description : setBorderCss
+   */
+  const setBorderCss = () => {
+    gridInstance.getData().forEach((_, gridIndex) => {
+      gridInstance.addCellClassName(gridIndex, 'isModify', 'border');
+      gridInstance.addCellClassName(gridIndex, 'rowNum', 'border');
+      gridInstance.addCellClassName(gridIndex, 'name', 'border');
+      gridInstance.addCellClassName(gridIndex, 'artist', 'border');
+      gridInstance.addCellClassName(gridIndex, 'release', 'border');
+      gridInstance.addCellClassName(gridIndex, 'genre', 'border');
+      gridInstance.addCellClassName(gridIndex, 'modify', 'border');
+    });
   };
 
   /**
@@ -262,10 +283,13 @@ const gridObj = () => {
   const setModify = (rowKey, value = false) => {
     gridInstance.setValue(rowKey, 'isModify', value);
     const el = gridInstance.getElement(rowKey, 'isModify');
+
     const child = el.childNodes;
     if (value) {
+      child[0].classList.add('state-img');
       child[0].classList.add('modify-img');
     } else {
+      child[0].classList.remove('state-img');
       child[0].classList.remove('modify-img');
     }
   };
@@ -303,18 +327,28 @@ export default {
       addData,
       modalShow,
       onCloseModal,
+      INSERT,
+      NORMAL,
+      UPDATED,
     };
   },
 };
 </script>
 
 <style lang="scss">
-.modify-img {
-  width: 20px;
-  height: 20px;
-  background: url('~@/assets/images/grid/edit.png');
-  background-size: 20px 20px;
+.state-img {
+  width: 16px;
+  height: 16px;
+  background-size: 16px 16px !important;
   border: none !important;
+}
+
+.modify-img {
+  background: url('~@/assets/images/grid/edit.png');
+}
+
+.insert-img {
+  background: url('~@/assets/images/grid/plus.png');
 }
 </style>
 
