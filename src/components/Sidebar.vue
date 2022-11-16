@@ -20,10 +20,11 @@
         </ul>
       </li>
 
-      <li class="menu-nm" :class="{ active: curPath === 'grid' }">상위3 메뉴</li>
+      <li class="menu-nm" :class="{ active: curPath === 'grid' || curPath === 'excel' }">상위3 메뉴</li>
       <li>
         <ul class="sub-menu">
           <li class="menu-nm" :class="{ active: curPath === 'grid' }" @click="move('grid')">Grid</li>
+          <li class="menu-nm" :class="{ active: curPath === 'excel' }" @click="move('excel')">Excel</li>
         </ul>
       </li>
     </ul>
