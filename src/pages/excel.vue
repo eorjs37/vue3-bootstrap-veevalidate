@@ -111,6 +111,7 @@ export default {
             name: columnItem,
             align: 'center',
             editor: 'text',
+            minWidth: 150,
           });
         });
 
