@@ -20,20 +20,22 @@ const gridObj = () => {
   const instancdGrid = () => {
     excelGridInstance = new Grid({
       el: document.getElementById('grid'), // Container element
-      scrollX: false,
-      scrollY: false,
+      scrollX: true,
+      scrollY: true,
       draggable: false,
       columns: [
         {
-          header: 'rowNum',
+          header: 'No',
           name: 'rowNum',
           align: 'center',
+          width: 80,
         },
         {
           header: 'Name',
           name: 'name',
           editor: 'text',
           align: 'center',
+          width: 150,
         },
         {
           header: 'Artist',
@@ -47,8 +49,37 @@ const gridObj = () => {
           align: 'center',
         },
       ],
+      bodyHeight: 500,
+      columnOptions: {
+        minWidth: 100,
+        resizable: true,
+      },
       data: [],
     });
+
+    Grid.applyTheme('clean', {
+      cell: {
+        normal: {
+          border: '#FF7F50',
+        },
+      },
+    }); // Call API of static method
+  };
+
+  /**
+   * @description : 컬럼 세팅
+   * @param columns : 컬럼 배열
+   */
+  const setColumns = columns => {
+    excelGridInstance.setColumns(columns);
+  };
+
+  /**
+   * @description : 데이터 세팅
+   * @param rowData : 데이터 배열
+   */
+  const setRowData = rowData => {
+    excelGridInstance.resetData(rowData);
   };
 
   const getGridInstance = () => {
@@ -58,6 +89,8 @@ const gridObj = () => {
   return {
     instancdGrid,
     getGridInstance,
+    setColumns,
+    setRowData,
   };
 };
 
@@ -68,9 +101,26 @@ export default {
   setup() {
     const excelData = ref([]);
     const onParsingJson = array => {
-      console.log(array);
+      if (array.length > 0) {
+        const columns = Object.keys(array[0]);
+        const arrayColumn = [];
+
+        columns.forEach(columnItem => {
+          arrayColumn.push({
+            header: columnItem,
+            name: columnItem,
+            align: 'center',
+            editor: 'text',
+          });
+        });
+
+        setColumns(arrayColumn);
+
+        //데이터 세팅
+        setRowData(array);
+      }
     };
-    const { instancdGrid } = gridObj();
+    const { instancdGrid, setColumns, setRowData } = gridObj();
 
     onMounted(() => {
       instancdGrid();
