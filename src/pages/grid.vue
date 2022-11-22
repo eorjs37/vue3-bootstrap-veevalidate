@@ -48,13 +48,13 @@ class CustomButtonRenderer {
   constructor(props) {
     const el = document.createElement('button');
     const { rowKey } = props;
-    const { modalShows, func } = props.columnInfo.renderer.options;
+    const { func } = props.columnInfo.renderer.options;
 
+    el.setAttribute('hidden', true);
     el.textContent = '저장';
     el.classList.add('cell-btn');
 
     el.addEventListener('click', _ => {
-      const modify = gridInstance.getValue(rowKey, 'isModify');
       const rowType = gridInstance.getValue(rowKey, 'rowType');
 
       if (rowType === INSERT) {
@@ -297,17 +297,27 @@ const gridObj = () => {
   const setRowType = (rowKey, type = NORMAL) => {
     gridInstance.setValue(rowKey, 'rowType', type);
     const el = gridInstance.getElement(rowKey, 'isModify');
+    const ele = gridInstance.getElement(rowKey, 'modify');
+
     const child = el.childNodes;
+    const childeren = ele.childNodes;
+
     if (type === NORMAL) {
       child[0].classList.remove('state-img');
       child[0].classList.remove('modify-img');
       child[0].classList.remove('insert-img');
+      childeren[0].setAttribute('hidden', true);
+      //버튼 제거
     } else if (type === INSERT) {
       child[0].classList.add('state-img');
       child[0].classList.add('insert-img');
+
+      //버튼 추가
     } else if (type === UPDATED) {
       child[0].classList.add('state-img');
       child[0].classList.add('modify-img');
+      childeren[0].removeAttribute('hidden');
+      //버튼 추가
     }
   };
 
