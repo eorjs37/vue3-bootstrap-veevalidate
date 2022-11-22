@@ -172,6 +172,7 @@ const searchObject = () => {
 };
 
 export default {
+  name: 'searchGroup',
   setup() {
     const store = useStore();
     const options = reactive([
