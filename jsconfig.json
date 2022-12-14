@@ -1,14 +1,15 @@
 // jsconfig.json
-{   "vueCompilerOptions": {
-        "experimentalDisableTemplateSupport": true
+{
+  "vueCompilerOptions": {
+    "experimentalDisableTemplateSupport": true
+  },
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
     },
-    "compilerOptions": {
-        "baseUrl": ".",
-        "paths": {
-            "@/*": ["src/*"],
-        },
-        "sourceMap": true
-    },
-    "include": ["src/**/*"],
-    "exclude": ["node_modules", "dist"]
+    "sourceMap": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }
