@@ -8,7 +8,9 @@
         </ul>
       </li>
 
-      <li class="menu-nm" :class="{ active: curPath === 'form' || curPath === 'form2' || curPath === 'form3' || curPath === 'calendar' }">
+      <li
+        class="menu-nm"
+        :class="{ active: curPath === 'form' || curPath === 'form2' || curPath === 'form3' || curPath === 'calendar' || curPath === 'userInfo' }">
         상위2 메뉴
       </li>
       <li>
@@ -17,6 +19,7 @@
           <li class="menu-nm" :class="{ active: curPath === 'form2' }" @click="move('form2')">Form2</li>
           <li class="menu-nm" :class="{ active: curPath === 'form3' }" @click="move('form3')">Form3</li>
           <li class="menu-nm" :class="{ active: curPath === 'calendar' }" @click="move('calendar')">calendar</li>
+          <li class="menu-nm" :class="{ active: curPath === 'userInfo' }" @click="move('userInfo')">userInfo</li>
         </ul>
       </li>
 
