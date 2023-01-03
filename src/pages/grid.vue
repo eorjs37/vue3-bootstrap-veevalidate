@@ -281,18 +281,7 @@ const gridObj = () => {
     });
   };
 
-  const setModify = (rowKey, value = false) => {
-    // gridInstance.setValue(rowKey, 'isModify', value);
-    // const el = gridInstance.getElement(rowKey, 'isModify');
-    // const child = el.childNodes;
-    // if (value) {
-    //   child[0].classList.add('state-img');
-    //   child[0].classList.add('modify-img');
-    // } else {
-    //   child[0].classList.remove('state-img');
-    //   child[0].classList.remove('modify-img');
-    // }
-  };
+  const setModify = (rowKey, value = false) => {};
 
   const setRowType = (rowKey, type = NORMAL) => {
     gridInstance.setValue(rowKey, 'rowType', type);
@@ -347,6 +336,14 @@ export default {
     const { gridInstance, instancdGrid, addData, modalShow, onCloseModal } = gridObj();
 
     onMounted(() => {
+      const gridEle = document.querySelector('#grid');
+
+      if (gridEle) {
+        const count = gridEle.childElementCount;
+        if (count > 1) {
+          document.querySelector('#grid').childNodes[0].remove();
+        }
+      }
       instancdGrid();
     });
 
