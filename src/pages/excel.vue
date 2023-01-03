@@ -124,6 +124,8 @@ export default {
     const { instancdGrid, setColumns, setRowData } = gridObj();
 
     onMounted(() => {
+      instancdGrid();
+
       const gridEle = document.querySelector('#grid');
       if (gridEle) {
         const count = gridEle.childElementCount;
@@ -131,7 +133,6 @@ export default {
           document.querySelector('#grid').childNodes[0].remove();
         }
       }
-      instancdGrid();
     });
 
     return {

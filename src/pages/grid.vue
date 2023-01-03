@@ -336,17 +336,16 @@ export default {
     const { gridInstance, instancdGrid, addData, modalShow, onCloseModal } = gridObj();
 
     onMounted(() => {
-      alert(1);
+      instancdGrid();
+
       const gridEle = document.querySelector('#grid');
 
       if (gridEle) {
         const count = gridEle.childElementCount;
         if (count > 1) {
-          alert('2개 이상');
           document.querySelector('#grid').childNodes[0].remove();
         }
       }
-      instancdGrid();
     });
 
     return {
