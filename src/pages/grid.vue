@@ -336,6 +336,7 @@ export default {
     const { gridInstance, instancdGrid, addData, modalShow, onCloseModal } = gridObj();
 
     onMounted(() => {
+      alert(1);
       const gridEle = document.querySelector('#grid');
 
       if (gridEle) {
