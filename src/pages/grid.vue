@@ -341,6 +341,7 @@ export default {
       if (gridEle) {
         const count = gridEle.childElementCount;
         if (count > 1) {
+          alert('2개 이상');
           document.querySelector('#grid').childNodes[0].remove();
         }
       }
