@@ -15,19 +15,7 @@ export default {
     onMounted(() => {
       const container = document.getElementById('calendar');
       const options = {
-        defaultView: 'week',
-        timezone: {
-          zones: [
-            {
-              timezoneName: 'Asia/Seoul',
-              displayLabel: 'Seoul',
-            },
-            {
-              timezoneName: 'Europe/London',
-              displayLabel: 'London',
-            },
-          ],
-        },
+        defaultView: 'month',
         calendars: [
           {
             id: 'cal1',
