@@ -1,7 +1,12 @@
 <template>
   <div class="container mt-3">
-    <h1>calendar 진행중</h1>
-    <div id="calendar" class="calendar"></div>
+    <div>
+      <button class="calendar-button today-button">TODAY</button>
+      <button class="calendar-button narrow-button ml-3">&lt;</button>
+      <button class="calendar-button narrow-button">&gt;</button>
+      <span class="calendar-date"> 2023.01 </span>
+    </div>
+    <div id="calendar" class="calendar mt-3"></div>
   </div>
 </template>
 
@@ -9,7 +14,7 @@
 import Calendar from '@toast-ui/calendar';
 import '@toast-ui/calendar/dist/toastui-calendar.min.css';
 import { onMounted } from 'vue';
-
+import { COLOR1, COLOR2 } from '@/utils/calendarColor';
 export default {
   setup() {
     onMounted(() => {
@@ -40,6 +45,7 @@ export default {
         common: {
           gridSelection: {
             backgroundColor: 'inherit',
+            border: 'none',
           },
         },
       });
@@ -49,19 +55,23 @@ export default {
           id: '1',
           calendarId: '1',
           title: 'my event',
-          category: 'time',
           dueDateClass: '',
-          start: '2023-01-18T22:30:00+09:00',
-          end: '2023-01-19T02:30:00+09:00',
+          start: '2023-01-18T17:30:00+09:00',
+          end: '2023-01-18T22:30:00+09:00',
+          backgroundColor: COLOR2.BG,
+          color: COLOR2.TEXT,
+          borderColor: COLOR2.BG,
         },
         {
           id: '2',
-          calendarId: '1',
+          calendarId: '2',
           title: 'second event',
-          category: 'time',
           dueDateClass: '',
           start: '2023-01-18T17:30:00+09:00',
           end: '2023-01-19T17:31:00+09:00',
+          backgroundColor: COLOR1.BG,
+          color: COLOR1.TEXT,
+          borderColor: COLOR1.BG,
         },
       ]);
     });
@@ -72,5 +82,26 @@ export default {
 <style lang="scss" scoped>
 .calendar {
   height: 600px;
+}
+
+.calendar-button {
+  background-color: #fff;
+  font-size: 14px;
+  border: 2px solid #ddd;
+  padding: 5px 12px;
+  margin-right: 10px;
+}
+
+.today-button {
+  border-radius: 25px;
+}
+
+.narrow-button {
+  border-radius: 25px;
+}
+
+.calendar-date {
+  font-size: 17px;
+  line-height: 17px;
 }
 </style>
