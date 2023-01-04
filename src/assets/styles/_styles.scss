@@ -74,6 +74,16 @@
   border: 1px solid #dee2e6;
 }
 
+/* table card */
+.card {
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 5px 5px rgba(238, 234, 234, 0.9);
+  padding: 25px;
+  border-width: 0;
+  transition: all 0.2s;
+}
+
 /* 검색조건 */
 .search-container {
   .title {
@@ -204,6 +214,10 @@ td {
   color: #495057;
   background-color: #fff;
   border: 1px solid #dee2e6;
+}
+
+table.info td {
+  padding: 0 10px;
 }
 
 table.info .label {

@@ -18,8 +18,8 @@
           <li class="menu-nm" :class="{ active: curPath === 'form' }" @click="move('form')">Form1</li>
           <li class="menu-nm" :class="{ active: curPath === 'form2' }" @click="move('form2')">Form2</li>
           <li class="menu-nm" :class="{ active: curPath === 'form3' }" @click="move('form3')">Form3</li>
-          <li class="menu-nm" :class="{ active: curPath === 'calendar' }" @click="move('calendar')">calendar</li>
-          <li class="menu-nm" :class="{ active: curPath === 'userInfo' }" @click="move('userInfo')">userInfo</li>
+          <li class="menu-nm" :class="{ active: curPath === 'calendar' }" @click="move('calendar')">Calendar</li>
+          <li class="menu-nm" :class="{ active: curPath === 'userInfo' }" @click="move('userInfo')">UserInfo</li>
         </ul>
       </li>
 

@@ -28,9 +28,42 @@ export default {
             backgroundColor: '#00a9ff',
           },
         ],
+        gridSelection: {
+          enableDbClick: false,
+          enableClick: false,
+        },
       };
 
       const calendar = new Calendar(container, options);
+
+      calendar.setTheme({
+        common: {
+          gridSelection: {
+            backgroundColor: 'inherit',
+          },
+        },
+      });
+
+      calendar.createEvents([
+        {
+          id: '1',
+          calendarId: '1',
+          title: 'my event',
+          category: 'time',
+          dueDateClass: '',
+          start: '2023-01-18T22:30:00+09:00',
+          end: '2023-01-19T02:30:00+09:00',
+        },
+        {
+          id: '2',
+          calendarId: '1',
+          title: 'second event',
+          category: 'time',
+          dueDateClass: '',
+          start: '2023-01-18T17:30:00+09:00',
+          end: '2023-01-19T17:31:00+09:00',
+        },
+      ]);
     });
   },
 };
