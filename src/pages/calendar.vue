@@ -1,10 +1,10 @@
 <template>
   <div class="container mt-3">
     <div>
-      <button class="calendar-button today-button">TODAY</button>
-      <button class="calendar-button narrow-button ml-3">&lt;</button>
-      <button class="calendar-button narrow-button">&gt;</button>
-      <span class="calendar-date"> 2023.01 </span>
+      <button class="calendar-button today-button" @click="funcSetToday">TODAY</button>
+      <button class="calendar-button narrow-button ml-3" @click="funcPrevMonth">&lt;</button>
+      <button class="calendar-button narrow-button" @click="funcNextMonth">&gt;</button>
+      <span class="calendar-date"> {{ compYyyyMm }} </span>
     </div>
     <div id="calendar" class="calendar mt-3"></div>
   </div>
@@ -13,10 +13,11 @@
 <script>
 import Calendar from '@toast-ui/calendar';
 import '@toast-ui/calendar/dist/toastui-calendar.min.css';
-import { onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { COLOR1, COLOR2 } from '@/utils/calendarColor';
 export default {
   setup() {
+    let calendar = ref(null);
     onMounted(() => {
       const container = document.getElementById('calendar');
       const options = {
@@ -39,9 +40,9 @@ export default {
         },
       };
 
-      const calendar = new Calendar(container, options);
+      calendar.value = new Calendar(container, options);
 
-      calendar.setTheme({
+      calendar.value.setTheme({
         common: {
           gridSelection: {
             backgroundColor: 'inherit',
@@ -50,7 +51,7 @@ export default {
         },
       });
 
-      calendar.createEvents([
+      calendar.value.createEvents([
         {
           id: '1',
           calendarId: '1',
@@ -75,6 +76,42 @@ export default {
         },
       ]);
     });
+
+    /**
+     * @description :이전달 이동
+     */
+    const funcPrevMonth = () => {
+      calendar.value.prev();
+    };
+
+    /**
+     * @description :다음달 이동
+     */
+    const funcNextMonth = () => {
+      calendar.value.next();
+    };
+
+    /**
+     * @description :오늘날짜 세팅
+     */
+    const funcSetToday = () => {
+      calendar.value.today();
+    };
+
+    const compYyyyMm = computed(() => {
+      if (calendar.value) {
+        const { d } = calendar.value.getDate();
+      }
+      return '2023.03';
+    });
+
+    return {
+      calendar,
+      funcNextMonth,
+      funcPrevMonth,
+      funcSetToday,
+      compYyyyMm,
+    };
   },
 };
 </script>
