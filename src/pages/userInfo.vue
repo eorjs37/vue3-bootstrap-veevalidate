@@ -62,7 +62,7 @@
         <b-button variant="primary" class="search-button ml-10px">결제등록하기</b-button>
       </div>
 
-      <div class="mt-3 card">
+      <div class="mt-3 box">
         <Table ref="table1" :tabledata="tableData" :loading="onLoading" :tableId="'carrot-sample1'"></Table>
         <div class="mt-3" v-show="!onLoading">
           <Paging :totaldata="samplePagingTotal" :pagingdata="5" :pagingrange="5" :setPage="sampleSetPage" @onPagingEvent="onMovePageing"></Paging>
