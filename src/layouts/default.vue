@@ -35,6 +35,7 @@ export default {
 <style lang="scss">
 @import '@/assets/styles/_variables.scss';
 @import '@/assets/styles/_styles.scss';
+@import '@/assets/styles/_booststrap_custom.scss';
 
 .body {
   background-color: #f5f8fa;
