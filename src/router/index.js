@@ -15,6 +15,10 @@ const router = createRouter({
       component: RouterLayout,
       children: routes,
     },
+    {
+      path: '/:pathMatch(.*)*',
+      redirect: '/error/404',
+    },
   ],
 });
 
