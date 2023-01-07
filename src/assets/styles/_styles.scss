@@ -254,6 +254,11 @@ table.info .label {
   border-radius: 5px;
 }
 
+/*required*/
+.required {
+  color: $red;
+}
+
 /********************************* tui custom *********************************/
 .tui-grid-cell-header {
   background-color: #f9f9f9;

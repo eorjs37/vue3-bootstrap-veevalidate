@@ -13,7 +13,10 @@
       <b-row>
         <b-col lg="6" sm="12">
           <Field id="name" name="name" label="이름" rules="required" v-slot="{ field, errors }">
-            <b-form-group id="name" label="이름" label-for="name">
+            <div class="mb-1">
+              <label for="name"><span class="required">*</span> 이름</label>
+            </div>
+            <b-form-group id="name" label-for="name">
               <b-form-input
                 id="name"
                 v-model="form.name"
@@ -29,7 +32,10 @@
         </b-col>
         <b-col lg="6" sm="12">
           <Field id="email" name="email" label="이메일" rules="required|email" v-slot="{ field, errors }">
-            <b-form-group id="email" label="Email address" label-for="email">
+            <div class="mb-1">
+              <label for="name"><span class="required">*</span> Email address</label>
+            </div>
+            <b-form-group id="email" label-for="email">
               <b-form-input
                 id="email"
                 v-model="form.email"
@@ -48,7 +54,10 @@
       <b-row>
         <b-col lg="6" sm="12">
           <Field id="password" name="password" label="비밀번호" rules="required" v-slot="{ field, errors }">
-            <b-form-group id="password" label="비밀번호" label-for="password">
+            <div class="mb-1">
+              <label for="name"><span class="required">*</span> 비밀번호</label>
+            </div>
+            <b-form-group id="password" label-for="password">
               <b-form-input
                 id="password"
                 type="password"
@@ -63,7 +72,10 @@
 
         <b-col lg="6" sm="12">
           <Field id="passwordConfirm" name="passwordConfirm" label="비밀번호" rules="required|confirmed:@password" v-slot="{ field, errors }">
-            <b-form-group id="passwordConfirm" label="비밀번호" label-for="passwordConfirm">
+            <div class="mb-1">
+              <label for="name"><span class="required">*</span> 비밀번호</label>
+            </div>
+            <b-form-group id="passwordConfirm" label-for="passwordConfirm">
               <b-form-input
                 id="passwordConfirm"
                 type="password"
@@ -80,7 +92,10 @@
       <b-row>
         <b-col lg="6" sm="12">
           <Field id="country" name="country" label="국가" rules="required" v-slot="{ field, errors }">
-            <b-form-group id="country" label="국가" label-for="country">
+            <div class="mb-1">
+              <label for="name"> 국가</label>
+            </div>
+            <b-form-group id="country" label-for="country">
               <b-form-select v-model="form.country" v-bind="field" :options="form.countryOptions" :state="errors[0] ? false : null"></b-form-select>
               <b-form-invalid-feedback v-if="errors[0]" id="input-live-feedback"> {{ errors[0] }} </b-form-invalid-feedback>
             </b-form-group>
@@ -89,7 +104,10 @@
 
         <b-col lg="6" sm="12">
           <Field id="gender" name="gender" label="성별" rules="required" v-slot="{ field, errors }">
-            <b-form-group id="gender" label="성별" label-for="gender">
+            <div class="mb-1">
+              <label for="성별"> 성별</label>
+            </div>
+            <b-form-group id="gender" label="" label-for="gender">
               <b-form-radio-group
                 id="gender"
                 v-model="form.gender"
@@ -106,7 +124,10 @@
 
       <b-row>
         <b-col cols="12">
-          <b-form-group id="time" label="시간" label-for="time">
+          <div class="mb-1">
+            <label for="성별"> 시간</label>
+          </div>
+          <b-form-group id="time" label-for="time">
             <b-row>
               <b-col cols="6">
                 <Field v-model="form.stTime" id="stTime" name="stTime" label="시작시간" rules="required" v-slot="{ field, errors }">
