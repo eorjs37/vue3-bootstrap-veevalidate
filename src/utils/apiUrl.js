@@ -2,8 +2,8 @@ let mainAPi = '';
 let carrotApi = '';
 
 if (location.origin.includes('local')) {
-  mainAPi = 'https://biggunsitdddde.co.kr';
-  carrotApi = 'https://www.carroddddtenglish.kr';
+  mainAPi = 'https://biggunsite.co.kr';
+  carrotApi = 'https://www.carrotenglish.kr';
 } else {
   mainAPi = 'https://biggunsite.co.kr';
   carrotApi = 'https://www.carrotenglish.kr';

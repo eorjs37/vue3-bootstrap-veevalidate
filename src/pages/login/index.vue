@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { login } from '@/api/login';
+import { login } from '@/api/mainapi/login';
 import { onMounted, reactive, ref } from '@vue/runtime-core';
 export default {
   layout: 'login',
