@@ -120,7 +120,15 @@
 </template>
 
 <script>
-export default {};
+import { getBanner } from '@/api/mainapi/carrotapi';
+import { onMounted } from 'vue-demi';
+export default {
+  setup() {
+    onMounted(() => {
+      getBanner();
+    });
+  },
+};
 </script>
 
 <style></style>

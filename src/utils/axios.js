@@ -1,7 +1,7 @@
 import axios from 'axios';
-
+import { mainAPi } from './apiUrl';
 const _axios = axios.create({
-  baseURL: process.env.VUE_APP_API_URL,
+  baseURL: mainAPi,
   timeout: 5000,
 });
 
