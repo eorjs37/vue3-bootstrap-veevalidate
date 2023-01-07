@@ -238,7 +238,7 @@ table.info .label {
   color: $tab-txt-active;
 }
 
-.class-manage-tab-menu .active {
+.class-manage-tab-menu.active {
   background-color: $tab-bg-active;
   color: $tab-txt-active;
 }
@@ -246,6 +246,12 @@ table.info .label {
 .class-manage-contents {
   border: 1px solid $gray;
   background-color: $tab-contents-bg;
+  max-height: 560px;
+}
+
+.class-manage-card {
+  border: 1px solid $gray;
+  border-radius: 5px;
 }
 
 /********************************* tui custom *********************************/
