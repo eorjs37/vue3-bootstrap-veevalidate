@@ -28,7 +28,7 @@
           <li class="menu-nm" :class="{ active: curPath === 'form3' }" @click="move('form3')">Form3</li>
           <li class="menu-nm" :class="{ active: curPath === 'calendar' }" @click="move('calendar')">Calendar</li>
           <li class="menu-nm" :class="{ active: curPath === 'userInfo' }" @click="move('userInfo')">UserInfo</li>
-          <li class="menu-nm" :class="{ active: curPath === 'sideTab' }" @click="move('sideTab')">SideTab</li>
+          <li class="menu-nm" :class="{ active: curPath === 'classManage' }" @click="move('classManage')">ClassManage</li>
         </ul>
       </li>
 

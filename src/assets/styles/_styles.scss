@@ -224,6 +224,30 @@ table.info .label {
   background-color: #e9ecef;
 }
 
+.class-manage-tab-menu {
+  border: 1px solid $gray;
+  border-radius: 5px;
+  background-color: $tab-bg;
+  color: $tab-txt;
+  cursor: pointer;
+  text-align: center;
+}
+
+.class-manage-tab-menu:hover {
+  background-color: $tab-bg-active;
+  color: $tab-txt-active;
+}
+
+.class-manage-tab-menu .active {
+  background-color: $tab-bg-active;
+  color: $tab-txt-active;
+}
+
+.class-manage-contents {
+  border: 1px solid $gray;
+  background-color: $tab-contents-bg;
+}
+
 /********************************* tui custom *********************************/
 .tui-grid-cell-header {
   background-color: #f9f9f9;
