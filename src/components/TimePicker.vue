@@ -1,5 +1,5 @@
 <template>
-  <Datepicker v-model="propTime" timePicker placeholder="Select Time" v-bind="field" minutesIncrement="5" :startTime="startTime">
+  <Datepicker v-model="startTime" time-picker placeholder="Select Time" v-bind="field" minutesIncrement="5" :startTime="startTime">
     <template #dp-input="{ value }">
       <input
         class="dp__pointer dp__input_readonly dp__input dp__input_icon_pad dp__input_reg"
@@ -31,6 +31,8 @@
 
 <script>
 import { ref } from '@vue/reactivity';
+import { computed, watch } from '@vue/runtime-core';
+import _ from 'lodash';
 export default {
   props: {
     /* 시간 */
@@ -57,11 +59,30 @@ export default {
       },
     },
   },
-  setup() {
-    const startTime = ref({ hours: 0, minutes: 0 });
+  setup(props) {
+    const startTime = ref(null);
+
+    const compTime = computed(() => {
+      const copyTime = _.cloneDeep(props.propTime);
+      return copyTime;
+    });
+
+    watch(
+      () => props.propTime,
+      cur => {
+        console.log('cur : ', cur);
+        if (cur) {
+          startTime.value = cur;
+        } else {
+          startTime.value = null;
+        }
+        console.log('111');
+      }
+    );
 
     return {
       startTime,
+      compTime,
     };
   },
 };
