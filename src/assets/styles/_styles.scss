@@ -61,9 +61,23 @@
 }
 
 /* width px */
-@for $i from 1 to 161 {
+@for $i from 1 to 1001 {
   .w-#{$i*1}px {
     width: ($i * 1px) !important;
+  }
+}
+
+/* height percent */
+@for $i from 1 to 101 {
+  .h-#{$i*1}per {
+    height: ($i * 1%) !important;
+  }
+}
+
+/* height px */
+@for $i from 1 to 1001 {
+  .h-#{$i*1}px {
+    height: ($i * 1px) !important;
   }
 }
 
@@ -201,6 +215,31 @@
   width: 100px;
   height: 100px;
   display: inline-block;
+}
+
+/* x-scroll table */
+.table-box {
+  background-color: $white;
+  border: 1px solid $gray;
+  border-radius: 10px;
+}
+
+.x-scroll {
+  overflow-x: auto;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.y-scroll {
+  overflow-y: auto;
+  display: inline-block;
+}
+
+.circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 25px;
+  background-color: $white;
 }
 
 /********************************* table *********************************/

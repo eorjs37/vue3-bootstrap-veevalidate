@@ -17,7 +17,8 @@
             curPath === 'form3' ||
             curPath === 'calendar' ||
             curPath === 'userInfo' ||
-            curPath === 'sideTab',
+            curPath === 'sideTab' ||
+            curPath === 'ovTable',
         }">
         상위2 메뉴
       </li>
@@ -29,6 +30,7 @@
           <li class="menu-nm" :class="{ active: curPath === 'calendar' }" @click="move('calendar')">Calendar</li>
           <li class="menu-nm" :class="{ active: curPath === 'userInfo' }" @click="move('userInfo')">UserInfo</li>
           <li class="menu-nm" :class="{ active: curPath === 'classManage' }" @click="move('classManage')">ClassManage</li>
+          <li class="menu-nm" :class="{ active: curPath === 'ovTable' }" @click="move('ovTable')">OvTable</li>
         </ul>
       </li>
 
