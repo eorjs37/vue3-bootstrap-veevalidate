@@ -33,6 +33,10 @@ import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import TimePicker from '@/components/TimePicker.vue';
 
+//vue-multiselect(https://vue-multiselect.js.org/)
+import Multiselect from 'vue-multiselect';
+import 'vue-multiselect/dist/vue-multiselect.css';
+
 const app = createApp(App).use(router);
 
 //vee-validate-component
@@ -53,6 +57,9 @@ app.component('FontAwesomeIcon', FontAwesomeIcon);
 
 //date-picker
 app.component('Datepicker', Datepicker);
+
+//vue-multiselect libary
+app.component('Multiselect', Multiselect);
 
 //BootstrapVue3
 app.use(BootstrapVue3);
