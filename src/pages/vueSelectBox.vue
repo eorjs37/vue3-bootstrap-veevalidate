@@ -15,20 +15,10 @@
             <b-row>
               <b-col cols="2" class="label">이름 </b-col>
               <b-col cols="10">
-                <multiselect
-                  v-model="value"
-                  :options="options"
-                  :preserve-search="true"
-                  placeholder="Pick some"
-                  label="name"
-                  track-by="name"
-                  :preselect-first="true">
+                <multiselect v-model="selectValue" :options="options" placeholder="Pick some" label="name" track-by="name">
                   <template #clear>
-                    <span class="vue-select-delete">삭제</span>
+                    <span class="vue-select-delete" v-if="selectValue" @mousedown.prevent.stop="valueClear">삭제</span>
                   </template>
-                  <!-- <template #clear>
-                    <div class="multiselect__clear" v-if="selectedCountries.length"></div>
-                  </template> -->
                 </multiselect>
               </b-col>
             </b-row>
@@ -43,7 +33,7 @@
 import { reactive, ref } from '@vue/reactivity';
 export default {
   setup() {
-    const value = ref(null);
+    const selectValue = ref(null);
     const options = reactive([
       { name: 'Vue.js', language: 'JavaScript' },
       { name: 'Adonis', language: 'JavaScript' },
@@ -53,9 +43,14 @@ export default {
       { name: 'Phoenix', language: 'Elixir' },
     ]);
 
+    const valueClear = () => {
+      selectValue.value = null;
+    };
+
     return {
-      value,
+      selectValue,
       options,
+      valueClear,
     };
   },
 };
