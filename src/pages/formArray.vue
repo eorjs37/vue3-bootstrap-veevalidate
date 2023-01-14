@@ -39,16 +39,18 @@
                     </tr>
                     <tr>
                       <td class="txt-center label p-2">수료기준 <span class="required">*</span></td>
-                      <td>01099784424</td>
-                    </tr>
-                    <tr>
-                      <td class="txt-center label p-2">SMS/Mail 수신여부</td>
-                      <td>SMS수신</td>
+                      <td class="p-3">
+                        <b-form-radio-group v-model="entry.value.standard" id="standard" :options="options3"> </b-form-radio-group>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </div>
+          </div>
+
+          <div class="text-right mt-3">
+            <b-button type="submit" variant="primary" @click="onSubmit">Submit</b-button>
           </div>
         </FieldArray>
       </Form>
@@ -65,14 +67,17 @@ export default {
         {
           idx: 1,
           text: 1,
+          standard: 'Y',
         },
         {
           idx: 1,
           text: 1,
+          standard: 'N',
         },
         {
           idx: 1,
           text: 1,
+          standard: 'N',
         },
       ],
     };
@@ -89,6 +94,11 @@ export default {
       { value: '2', text: 'ITM' },
     ]);
 
+    const options3 = reactive([
+      { value: 'Y', text: '사용' },
+      { value: 'N', text: '사용안함' },
+    ]);
+
     const onSubmit = values => {
       console.log(values);
     };
@@ -97,6 +107,7 @@ export default {
       initalValues,
       options1,
       options2,
+      options3,
       onSubmit,
     };
   },
