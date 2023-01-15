@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-3">
-    <div class="class-manage-list p-3">
+    <div class="class-manage-list p-3" v-if="loading">
       <Form v-slot="{ values }" @submit.prevent="onSubmit(values)" ref="formArrary" class="form" :initial-values="initalValues">
         <div class="mt-4 mb-4">
           <table class="info">
@@ -8,8 +8,14 @@
               <tr>
                 <td class="w-20per txt-center label p-2">메뉴명 <span class="required">*</span></td>
                 <td class="w-75per p-3">
-                  <Field id="companyname" name="companyname" label="회사명" rules="required" v-slot="{ field, errors }">
-                    <b-form-input id="name" v-bind="field" type="text" placeholder="회사명을 입력하세요" :state="errors[0] ? false : null">
+                  <Field v-model="values.companyname" id="companyname" name="companyname" label="회사명" rules="required" v-slot="{ field, errors }">
+                    <b-form-input
+                      v-model="values.companyname"
+                      id="name"
+                      v-bind="field"
+                      type="text"
+                      placeholder="회사명을 입력하세요"
+                      :state="errors[0] ? false : null">
                     </b-form-input>
 
                     <b-form-invalid-feedback v-if="errors[0]" id="input-live-feedback"> {{ errors[0] }} </b-form-invalid-feedback>
@@ -83,7 +89,8 @@
 </template>
 
 <script>
-import { reactive } from '@vue/reactivity';
+import { reactive, ref } from '@vue/reactivity';
+import { onMounted } from '@vue/runtime-core';
 export default {
   setup() {
     const initalValues = {
@@ -109,6 +116,7 @@ export default {
         },
       ],
     };
+    const loading = ref(false);
 
     const options1 = reactive([
       { value: '', text: '-선택-' },
@@ -131,8 +139,17 @@ export default {
       console.log(values);
     };
 
+    onMounted(() => {
+      loading.value = false;
+      setTimeout(() => {
+        initalValues.companyname = '당근영어';
+        loading.value = true;
+      }, 5000);
+    });
+
     return {
       initalValues,
+      loading,
       options1,
       options2,
       options3,
