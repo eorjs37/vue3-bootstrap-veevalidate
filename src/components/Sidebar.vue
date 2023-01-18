@@ -33,6 +33,7 @@
           <li class="menu-nm" :class="{ active: curPath === 'classManage' }" @click="move('classManage')">ClassManage</li>
           <li class="menu-nm" :class="{ active: curPath === 'ovTable' }" @click="move('ovTable')">OvTable</li>
           <li class="menu-nm" :class="{ active: curPath === 'formArray' }" @click="move('formArray')">FormArray</li>
+          <li class="menu-nm" :class="{ active: curPath === 'accordion' }" @click="move('accordion')">Accordion</li>
         </ul>
       </li>
 
